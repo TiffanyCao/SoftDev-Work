@@ -14,7 +14,7 @@ def getName(team):
 def randomName():
     teams = list(KREWES.keys()) #dictionary converted into a list
     period = random.choice(teams) #chooses a random index (team) from the list
-    print random.choice(KREWES[period]) #prints out a random index (name) from the chosen team
+    print(random.choice(KREWES[period])) #prints out a random index (name) from the chosen team
 
 #Test Runs
 #for i in range(0, 10):
