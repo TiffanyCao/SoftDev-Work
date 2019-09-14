@@ -24,3 +24,5 @@ def randJob():
     #print(list)
     #print(len(list)) #should return 998
     return random.choice(list)
+
+#print(randJob())
