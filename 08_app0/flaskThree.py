@@ -1,3 +1,8 @@
+#Tiffany Cao
+#SoftDev1 pd1
+#K8 -- Lemme Flask You Sump’n
+#2019-09-19
+
 from flask import Flask
 app = Flask(__name__)
 
