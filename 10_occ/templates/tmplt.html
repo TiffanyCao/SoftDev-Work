@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+
+<html>
+  <head>
+      <title> {{ ti }} </title>
+  </head>
+  <body>
+    <h1> {{ randJob }} </h1>
+    <br><br><br>
+    {% for key in collection %}
+      {{ key }}, {{ collection[key] }}
+      <br>
+    {% endfor %}
+  </body>
+</html>
