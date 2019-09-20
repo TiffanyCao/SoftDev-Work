@@ -3,6 +3,7 @@
 #K10 -- Jinja Tuning
 #2019-09-20
 
+import random
 from flask import Flask, render_template
 app = Flask(__name__)
 
@@ -14,14 +15,14 @@ def norm():
 coll = [0, 1, 1, 2, 3, 5, 8]
 
 
-def norm():
-    return "Go to other page"
+#def norm():
+#    return "Go to other page"
 
-
-#create dictionary based on csv
-dict = {} #initialize a new dictionary structure
-file = open("occupations.csv", "r") #open up csv file for reading purposes
+dict = {}
+file = open("occupations.csv", "r")
 content = file.readlines() #parse through file by lines
+firstLine = content[0]
+lastLine = content[len(content) - 1]
 content = content[1:len(content) - 1] #take out the first and last line
 for line in content:
     line = line.strip() #removes \n
@@ -35,8 +36,6 @@ for line in content:
 #print(dict) #testing results
 file.close()
 
-import random
-
 def randJob():
     list = []
     for key, value in dict.items(): #found this iteration on stack overflow
@@ -45,19 +44,19 @@ def randJob():
     #print(len(list)) #should return 998
     return random.choice(list)
 
-
-
 @app.route('/occupyflaskft')
+
 def occs_template():
-    print(randJob())
+    #print(randJob())
     return render_template('tmplt.html',
-        ti = 'Occupations',
+        ti = "Occupations",
         randJob = randJob(),
-        collection = coll
+        tableTitle = firstLine,
+        collection = dict,
+        tableEnd = lastLine
         #collection = dict
 
         )
-
 
 
 if __name__ == "__main__":
