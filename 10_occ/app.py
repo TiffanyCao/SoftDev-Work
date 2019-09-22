@@ -22,7 +22,9 @@ dict = {}
 file = open("occupations.csv", "r")
 content = file.readlines() #parse through file by lines
 firstLine = content[0]
+firstLine = firstLine.split(",")
 lastLine = content[len(content) - 1]
+lastLine = lastLine.split(",")
 content = content[1:len(content) - 1] #take out the first and last line
 for line in content:
     line = line.strip() #removes \n
@@ -48,13 +50,16 @@ def randJob():
 
 def occs_template():
     #print(randJob())
+    print(firstLine[0])
+    print(firstLine[1])
     return render_template('tmplt.html',
         ti = "Occupations",
         randJob = randJob(),
-        tableTitle = firstLine,
+        tableTitle1 = firstLine[0],
+        tableTitle2 = firstLine[1],
         collection = dict,
-        tableEnd = lastLine
-        #collection = dict
+        tableEnd1 = lastLine[0],
+        tableEnd2 = float(lastLine[1]),
 
         )
 
