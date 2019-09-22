@@ -8,22 +8,20 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 
+#testing for normal route
 @app.route("/")
 def norm():
     return "normal"
 
 coll = [0, 1, 1, 2, 3, 5, 8]
 
-
-#def norm():
-#    return "Go to other page"
-
+#setup for reading in the file and creating a dictionary
 dict = {}
 file = open("occupations.csv", "r")
 content = file.readlines() #parse through file by lines
-firstLine = content[0]
+firstLine = content[0] #take out the first line for table title
 firstLine = firstLine.split(",")
-lastLine = content[len(content) - 1]
+lastLine = content[len(content) - 1] #take out the last line for table end
 lastLine = lastLine.split(",")
 content = content[1:len(content) - 1] #take out the first and last line
 for line in content:
@@ -38,6 +36,7 @@ for line in content:
 #print(dict) #testing results
 file.close()
 
+#a function that gets a random job with the chances based on its percentage
 def randJob():
     list = []
     for key, value in dict.items(): #found this iteration on stack overflow
@@ -48,10 +47,9 @@ def randJob():
 
 @app.route('/occupyflaskft')
 
+#sets up html table structure by assigning the variables
 def occs_template():
     #print(randJob())
-    print(firstLine[0])
-    print(firstLine[1])
     return render_template('tmplt.html',
         ti = "Occupations",
         randJob = randJob(),
