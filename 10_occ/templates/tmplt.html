@@ -6,10 +6,21 @@
   </head>
   <body>
     <h1> {{ randJob }} </h1>
-    <h2> {{ tableTitle }} </h2>
+    <table>
+      <tr style="color: blue; ">
+        <td> {{ tableTitle1 }} </td>
+        <td> {{ tableTitle2 }} </td>
+      </tr>
     {% for key, value in collection.items() %}
-      {{ key }}, {{ collection[key] }}
+      <tr>
+        <td>{{ key }} </td>
+        <td> {{ value }} </td>
     {% endfor %}
-    <h3> {{ tableEnd }} </h3>
+  </tr>
+  <tr style="color: blue; ">
+    <td> {{ tableEnd1 }} </td>
+    <td> {{ tableEnd2 }} </td>
+  </tr>
+  </table>
   </body>
 </html>
