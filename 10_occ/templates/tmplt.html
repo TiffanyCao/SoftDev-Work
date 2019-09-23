@@ -17,9 +17,28 @@
     </h2>
   </small>
   </small>
+    <!--Used https://www.w3schools.com/html/html_formatting.asp for reference in HTML text formatting. -->
     <h3> <big> <big> <big> <mark> {{ randJob }} </mark> </big> </big> </big> </h3>
+    <!--Used https://www.geeksforgeeks.org/python-using-for-loop-in-flask/ for reference in table structure. -->
+    <style type="text/css">
+
+    th:tr{
+        color: blue;
+
+    }
+    tr:nth-of-type(2n){
+        border: 1px solid black;
+        background-color: rgba(150, 150, 150, 0.5);
+
+    }
+
+    td{
+        padding: 8px 8px;
+        border: 1px solid black;
+    }
+</style>
     <table>
-      <tr style="color: blue; ">
+      <tr style="color: blue; "> <!-- changes color of table head text blue -->
         <td> {{ tableTitle1 }} </td>
         <td> {{ tableTitle2 }} </td>
       </tr>
@@ -29,7 +48,7 @@
         <td> {{ value }} </td>
     {% endfor %}
   </tr>
-  <tr style="color: blue; ">
+  <tr style="color: blue; "> <!--changes color of table end text blue -->
     <td> {{ tableEnd1 }} </td>
     <td> {{ tableEnd2 }} </td>
   </tr>
