@@ -36,6 +36,23 @@ for line in content:
 #print(dict) #testing results
 file.close()
 
+dict2 = {}
+file2 = open("occupationsLinks.csv",  "r")
+content2 = file2.readlines()
+firstTitle = content2[0]
+firstTitle = firstTitle.split(",")
+for line in content2:
+    line = line.strip()
+    line = line.lstrip('\"')
+    if ("\"" in line): #if line contains quotation marks
+        line = line.split("\",") #splits line by ",
+    else:
+        line = line.split(",") #if line does not contain quotes, split by comma
+
+    dict2[line[0]] = (line[1]) #key value pair
+#print(dict) #testing results
+file2.close()
+
 #a function that gets a random job with the chances based on its percentage
 def randJob():
     list = []
@@ -58,7 +75,8 @@ def occs_template():
         collection = dict,
         tableEnd1 = lastLine[0],
         tableEnd2 = float(lastLine[1]),
-
+        linkTitle = firstTitle[1],
+        linkColl = dict2
         )
 
 

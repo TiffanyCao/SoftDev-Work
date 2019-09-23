@@ -13,7 +13,7 @@
         </h1>
     <small>
       <small>
-    <h2> This webpage creates a table of the many occupations and their percentages. It obtains a random job from the table with the chances of being chosen based on each job's percentage. Refreshing the page will get a new draw.
+    <h2> This webpage creates a table of the many occupations and their percentages. It obtains a random job from the table with the chances of being chosen based on each job's percentage. Refreshing the page will get a new draw. Each occupation also has a link provided that brings the user to a page with more information on that occupation.
     </h2>
   </small>
   </small>
@@ -41,11 +41,14 @@
       <tr style="color: blue; "> <!-- changes color of table head text blue -->
         <td> {{ tableTitle1 }} </td>
         <td> {{ tableTitle2 }} </td>
+        <td> {{ linkTitle }} </td>
       </tr>
     {% for key, value in collection.items() %}
       <tr>
         <td>{{ key }} </td>
         <td> {{ value }} </td>
+            <!--Used https://www.w3schools.com/html/html_links.asp for reference in linking. -->
+        <td> <a href= {{linkColl[key]}}> {{ key }} </a> </td>
     {% endfor %}
   </tr>
   <tr style="color: blue; "> <!--changes color of table end text blue -->
