@@ -37,13 +37,13 @@ for line in content:
 file.close()
 
 dict2 = {}
-file2 = open("occupationsLinks.csv",  "r")
-content2 = file2.readlines()
-firstTitle = content2[0]
-firstTitle = firstTitle.split(",")
+file2 = open("occupationsLinks.csv",  "r") #opens second file with links
+content2 = file2.readlines() #parse through files by line
+firstTitle = content2[0] #get the first line
+firstTitle = firstTitle.split(",") #split the first line by the comma to get "Job" and "Link"
 for line in content2:
-    line = line.strip()
-    line = line.lstrip('\"')
+    line = line.strip() #removes \n
+    line = line.lstrip('\"') #removes leading quotation
     if ("\"" in line): #if line contains quotation marks
         line = line.split("\",") #splits line by ",
     else:
@@ -72,11 +72,11 @@ def occs_template():
         randJob = randJob(),
         tableTitle1 = firstLine[0],
         tableTitle2 = firstLine[1],
-        collection = dict,
+        collection = dict, #percentages
         tableEnd1 = lastLine[0],
         tableEnd2 = float(lastLine[1]),
         linkTitle = firstTitle[1],
-        linkColl = dict2
+        linkColl = dict2 #links
         )
 
 
