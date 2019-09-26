@@ -8,12 +8,12 @@ import cgi
 
 app = Flask(__name__)
 
-@app.route('/')
-def hello_world():
-    print("hello")
-    return "hello world"
+# @app.route('/')
+# def hello_world():
+#     print("hello")
+#     return "hello world"
 
-@app.route("/forms")
+@app.route("/")
 def test_tmplt():
     print(app)
     return render_template('form.html')
@@ -43,7 +43,8 @@ def authenticate():
     #print(request.args['username'] #only works if username submitted
     #print("***DIAG: request.headers ***)
     #print(request.headers) #only works for python
-    return "Waaaa hooo HAAAH"
+    return render_template('response.html',
+        name = request.args['username'])
 
 if __name__ == "__main__":
     app.debug = True
