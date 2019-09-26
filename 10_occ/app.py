@@ -62,7 +62,7 @@ def randJob():
     #print(len(list)) #should return 998
     return random.choice(list)
 
-@app.route('/occupyflaskft')
+@app.route('/occupyflaskst')
 
 #sets up html table structure by assigning the variables
 def occs_template():
