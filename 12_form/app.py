@@ -1,11 +1,9 @@
 #Tiffany Cao & Yaru Luo
 #SoftDev1 pd1
-#K
-#2019
+#K12: Echo Echo Echo
+#2019-09-26
 
 from flask import Flask, render_template, request
-import cgi
-
 app = Flask(__name__)
 
 # @app.route('/')
@@ -13,25 +11,15 @@ app = Flask(__name__)
 #     print("hello")
 #     return "hello world"
 
-@app.route("/")
+@app.route("/") #route for landing page
 def test_tmplt():
     print(app)
     return render_template('form.html')
 
 
-# @app.route("/auth")
-# def authenticate():
-#     print(app)
-#     print(request)
-#     print(request.args)
-#     print(request.args['username'])
-#     print(request.headers)
-#     return render_template('response.html',
-#         name = request.args['username'])
-
-
-@app.route("/auth")
+@app.route("/auth") #route for response page
 def authenticate():
+    #for testing
     print("\n\n\n")
     print("***DIAG: this Flask obj ***")
     print(app)
@@ -44,7 +32,17 @@ def authenticate():
     #print("***DIAG: request.headers ***)
     #print(request.headers) #only works for python
     return render_template('response.html',
-        name = request.args['username'])
+        name = request.args['username']) #requests for the username given by user
+
+# @app.route("/auth")
+# def authenticate():
+#     print(app)
+#     print(request)
+#     print(request.args)
+#     print(request.args['username'])
+#     print(request.headers)
+#     return render_template('response.html',
+#         name = request.args['username'])
 
 if __name__ == "__main__":
     app.debug = True
