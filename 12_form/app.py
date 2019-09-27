@@ -17,7 +17,7 @@ def test_tmplt():
     return render_template('form.html')
 
 
-@app.route("/auth") #route for response page
+@app.route("/auth", methods = ["GET", "POST"]) #route for response page
 def authenticate():
     #for testing
     print("\n\n\n")
@@ -32,7 +32,7 @@ def authenticate():
     #print("***DIAG: request.headers ***)
     #print(request.headers) #only works for python
     return render_template('response.html',
-        name = request.args['username']) #requests for the username given by user
+        name = request.cookies.get('username')) #requests for the username given by user
 
 # @app.route("/auth")
 # def authenticate():
