@@ -1,0 +1,11 @@
+{% extends "parent.html" %}
+{% block title %}
+  Logout
+{% endblock %}
+
+{% block body %}
+    <p> Welcome {{ name }}! You have logged in. </p>
+    <form action = "/logout">
+      <input type = "submit" name = "logout" value = "Logout"> {# to welcome page #}
+    </form>
+{% endblock %}
