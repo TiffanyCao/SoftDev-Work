@@ -3,8 +3,11 @@
   Logout
 {% endblock %}
 
-{% block body %}
-    <p> Welcome {{ name }}! You have logged in. </p>
+{% block message %}
+  <p> Welcome {{ name }}! You have successfully logged in. </p>
+{% endblock %}
+
+{% block form %}
     <form action = "/logout">
       <input type = "submit" name = "logout" value = "Logout"> {# to welcome page #}
     </form>

@@ -1,10 +1,9 @@
-
 # Tiffany Cao & Amanda Chen
 # SoftDev1 pd1
-# K15 -- Do I Know You?
-# 2019-10-02
+# K16 -- Oh yes, perhaps I do…
+# 2019-10-03
 
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 app = Flask(__name__)
 
 
@@ -22,6 +21,7 @@ def login():
     if 'user' in session: #keeps user logged in
          return redirect (url_for("welcome"))
     else: #for new user
+        flash("Please log in.")
         return render_template('login.html',
                                 team = name,
                                 rost = roster)
@@ -39,6 +39,7 @@ def logout(): #logout page redirected from logout button on welcome page
     print(app)
     session.pop('user') #removes session info
     session.pop('pass')
+    flash("You have successfully logged out.")
     return render_template('logout.html', #back button goes back to login
                             team = name,
                             rost = roster)
@@ -59,17 +60,15 @@ def authenticate(): #checks to match user and pass
 @app.route("/error") #error page
 def err():
     print(request.form)
-    r = ''
     if (session['user'] != username): #checks type of error
-        r = "Username does not exist. Try again."
+        flash("Username does not exist. Try again.")
     else:
-        r = "Password does not match Username. Try again."
+        flash("Password does not match Username. Try again.")
     session.pop('user')
     session.pop('pass')
     return render_template('error.html', #back button goes back to login
                             team = name,
-                            rost = roster,
-                            reason = r)
+                            rost = roster)
 
 
 if __name__ == "__main__":

@@ -3,14 +3,13 @@
   Login
 {% endblock %}
 
-{% block body %}
-  <p>Please log in.</p>
+{% block form %}
     <form action = "/auth">
       Username<br>
-      <input type = "text" name = "username">
+      <input type = "username" name = "username">
       <br>
       Password<br>
-      <input type = "text" name = "password">
+      <input type = "password" name = "password">
       <br>
       <input type = "submit" name = "sub1">
     </form>
