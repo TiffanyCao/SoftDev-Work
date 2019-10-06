@@ -38,7 +38,6 @@ def welcome(): #welcome page for users that are logged in
 def logout(): #logout page redirected from logout button on welcome page
     print(app)
     session.pop('user') #removes session info
-    session.pop('pass')
     flash("You have successfully logged out.")
     return render_template('logout.html', #back button goes back to login
                             team = name,
@@ -48,9 +47,7 @@ def logout(): #logout page redirected from logout button on welcome page
 def authenticate(): #checks to match user and pass
     print(url_for("login"))
     session['user'] = request.args['username']
-    session['pass'] = request.args['password']
     print(session['user'])
-    print(session['pass'])
     if (request.args['username'] == username and request.args['password'] == password) :
        return redirect (url_for("welcome")) #goes to welcome page if credentials are correct
     else:
@@ -65,7 +62,6 @@ def err():
     else:
         flash("Password does not match Username. Try again.")
     session.pop('user')
-    session.pop('pass')
     return render_template('error.html', #back button goes back to login
                             team = name,
                             rost = roster)
