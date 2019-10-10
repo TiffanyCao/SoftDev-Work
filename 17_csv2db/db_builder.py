@@ -26,7 +26,7 @@ with open('students.csv') as csvfile: #open and read students.csv file and store
     for row in data: #for every row in reader, insert values into roster table
          c.execute(f"INSERT INTO roster (name, age, userid) VALUES ('{row['name']}', {row['age']}, {row['id']})")
 
-command2 = "CREATE TABLE courses(code TEXT, mark INTEGER, id INTEGER)" #create table named courses for students.csv
+command2 = "CREATE TABLE courses(code TEXT, mark INTEGER, id INTEGER)" #create table named courses for courses.csv
 c.execute(command2) #command executed
 data2 = {}
 with open('courses.csv') as csvfile2: #open and read courses.csv file and store as dictionary
