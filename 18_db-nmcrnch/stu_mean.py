@@ -1,7 +1,7 @@
-#Jesse "McCree" Chen
-#SoftDev
-#skeleton :: SQLITE3 BASICS
-#Oct 2019
+#Tiffany Cao & Jesse "McCree" Chen
+#SoftDev1 pd1
+#K18 -- Average
+#2019-10-10
 
 import sqlite3   #enable control of an sqlite database
 import csv       #facilitate CSV I/O
