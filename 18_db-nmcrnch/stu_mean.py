@@ -1,4 +1,4 @@
-#Tiffany Cao & Jesse "McCree" Chen
+#Team Printer Cart: Tiffany Cao & Jesse "McCree" Chen
 #SoftDev1 pd1
 #K18 -- Average
 #2019-10-10
