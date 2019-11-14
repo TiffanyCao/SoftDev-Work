@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title> Global Air Quality </title>
+  </head>
+  <body>
+    <h1> API Name: AirVisual API </h1><br>
+    <h3>This is an API that displays the air quality of a certain place on Earth. Parameters include country, state, city, coordinates, and more.</h3>
+
+    <br>
+    Parameters Given:
+    <br><br>
+    City: {{ city }}
+    <br>
+    State: {{ state }}
+    <br>
+    Country: {{ country }}
+    <br><br>
+    This are the air quality information for Los Angeles, CA, USA:<br><br>
+    {% for key in poll %}
+     {{ key }}: <br>
+      {% for key1 in poll[key] %}
+        {{ key1 }}: {{ poll[key][key1] }}
+        <br>
+      {% endfor %}
+      <br>
+    {% endfor %}
+
+    <h2><a href="https://api-docs.airvisual.com/?version=latest#detailed-response-example">For information on what each of these values mean, visit the documenation website here!</a>
+
+  </body>
+</html>
