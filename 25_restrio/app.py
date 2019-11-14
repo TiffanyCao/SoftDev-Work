@@ -21,7 +21,7 @@ def address():
     data = json.loads(response)
     data = data['suggestions']
     # stuff = stuff['href']
-    return render_template("index1.html", stuff = data, length = len(data))
+    return render_template("address.html", stuff = data, length = len(data))
 
 @app.route("/darksky")
 def darksky():
@@ -38,6 +38,14 @@ def air():
     response = u.read()
     data = json.loads(response)
     return render_template("airquality.html", city = data['data']['city'], state = data['data']['state'], country = data['data']['country'], poll = data['data']['current'], length = len(data['data']['current']))
+
+@app.route("/trivia")
+def trivia():
+    url = "https://opentdb.com/api.php?amount=2"
+    u = urllib.request.urlopen(url)
+    response = u.read()
+    data = json.loads(response)
+    return render_template("trivia.html", category = data['results'][0], category2 = data['results'][1])
 
 
 if __name__ == "__main__":
