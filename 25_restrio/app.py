@@ -47,6 +47,21 @@ def trivia():
     data = json.loads(response)
     return render_template("trivia.html", category = data['results'][0], category2 = data['results'][1])
 
+@app.route("/omdb")
+def omdb():
+    url = "http://www.omdbapi.com/?t=handmaiden&apikey=bb27b700"
+    u = urllib.request.urlopen(url)
+    response = u.read()
+    data = json.loads(response)
+    return render_template("omdb.html",title=data['Title'],year=data['Year'],runtime=data['Runtime'],dir=data['Director'],plot=data['Plot'])
+
+@app.route("/countries")
+def countries():
+    url = "https://restcountries.eu/rest/v2/alpha/col?fields=name;capital;region;population;latlng;flag"
+    u = urllib.request.urlopen(url)
+    response = u.read()
+    data = json.loads(response)
+    return render_template("countries.html", name=data['name'],cor=data['latlng'],region=data['region'],capital=data['capital'],pop=data['population'],flag=data['flag'])
 
 if __name__ == "__main__":
     app.debug = True
