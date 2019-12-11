@@ -1,3 +1,8 @@
+//Jackie Lin and Tiffany Cao (Team Couch Potatoes)
+//SoftDev1 pd1
+//K#27 -- Sequential Progression
+//2019-12-10
+
 // console.log("this is a test");
 
 //function for factorial
@@ -20,10 +25,10 @@ var gcd = function(a, b){
   return gcd(b, a % b);
 };
 
-var test = ["Tiffany", "Jackie", "Tina", "Wooooo"]
+var test = ["Tiffany", "Jackie", "Tina", "Wooooo", "Bob", "Joe", "Esteban"]
 
 //function for selecting random student from a given list
-var randomStudent = function(list) {
-  var index = parseInt(Math.random() * list.length);
+var randomStudent = function() {
+  var index = parseInt(Math.random() * test.length);
   return list[index];
 };
