@@ -15,6 +15,7 @@ var removeItem = function(e) {
 };
 
 var lis = document.getElementsByTagName("li");
+// console.log(lis);
 
 for (var i = 0; i < lis.length; i++){
   lis[i].addEventListener('mouseover', changeHeading);
@@ -23,5 +24,16 @@ for (var i = 0; i < lis.length; i++){
 };
 
 var addItem = function(e) {
-  var list = document.getElementsByID("ol")
-}
+  console.log(e);
+  var list = document.getElementById("thelist");
+  var li = document.createElement("li");
+  var node = document.createTextNode("WORD");
+  li.appendChild(node);
+  li.addEventListener('mouseover', changeHeading);
+  li.addEventListener('mouseout', changeHeading);
+  li.addEventListener('click', removeItem);
+  list.appendChild(li);
+};
+
+
+var add = document.getElementById("b").addEventListener('click', addItem);
