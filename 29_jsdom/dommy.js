@@ -108,7 +108,3 @@ var factorial = function(n) {
   if (n < 2) return 1;
   return factorial(n - 1) * n;
 };
-
-var addCatalan = function(e) {
-
-};
