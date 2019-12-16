@@ -102,9 +102,26 @@ var addFib2 = function(e) {
 var fb = document.getElementById('fb');
 fb.addEventListener('click',addFib2);
 
-
-//function for factorial
-var factorial = function(n) {
-  if (n < 2) return 1;
-  return factorial(n - 1) * n;
+// var trilist = [1];
+var tri = function(n) {
+  return n * (n + 1) / 2;
+  // if (n <= 1) return trilist[0];
+  // if (trilist[n-1]){
+  //   return trilist[n-1];
+  // }else {
+  //   trilist[n-1] = trilist[n-2] + n;
+  //   return trilist[n-1];
+  // }
 };
+
+var addTri = function(e) {
+  var trilist = document.getElementById('trilist');
+  var newTri = tri(trilist.children.length + 1);
+  var newli = document.createElement('li');
+  var node = document.createTextNode(newTri);
+  newli.appendChild(node);
+  trilist.appendChild(newli);
+};
+
+var triButton = document.getElementById('tri');
+triButton.addEventListener('click', addTri);
