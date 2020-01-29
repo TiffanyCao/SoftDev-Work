@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title> USPS Address Autocomplete </title>
+  </head>
+  <body>
+    <h1> API Name: USPS Address Autocomplete </h1><br>
+    <h3>This is an API that demonstrates how autocomplete works for addresses in the United States given inputs like prefixes, city filters, state filters, and more. </h3>
+
+    <br>
+    Prefix Value Inputted: "4770 Lincoln Ave O"
+    <br>
+    These are the possible autocompleted addresses given the prefix: <br><br>
+    {% for i in range(length) %}
+     {{ stuff[i] }}
+     <br>
+    {% endfor %}
+  </body>
+</html>
