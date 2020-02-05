@@ -1,3 +1,8 @@
+// The Cows -- Tiffany Cao and William Cao
+// SoftDev1 pd1
+// K04 -- I See a Red Door...
+// 2020-02-05
+
 var c = document.getElementById("slate")
 var ctx = c.getContext("2d");
 var mode = "rectangle"; // "rectangle" or "dot"
