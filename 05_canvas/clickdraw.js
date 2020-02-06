@@ -10,10 +10,6 @@ var modeDisplay = document.getElementById("modeDisplay");
 var drawingInstructions = [];
 
 document.getElementById("clear").addEventListener("click", () => {
-  // e.preventDefault();
-  // this method is used to cancel the default action related to an event;
-  // for example, if you use this method on a "submit" button, the form will not be submitted.
-  // here, clearing the canvas will be prevented if this method is used
   ctx.fillStyle = "#fff";
   ctx.fillRect(0, 0, c.width, c.height);
 });
@@ -46,3 +42,8 @@ c.addEventListener("click", (e) => {
     ctx.fill();
   }
 })
+
+// e.preventDefault();
+// this method is used to cancel the default action related to an event;
+// for example, if you use this method on a "submit" button, the form will not be submitted.
+// here, clearing the canvas will be prevented if this method is used
