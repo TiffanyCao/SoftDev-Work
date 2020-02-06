@@ -45,5 +45,5 @@ c.addEventListener("click", (e) => {
 
 // e.preventDefault();
 // this method is used to cancel the default action related to an event;
-// for example, if you use this method on a "submit" button, the form will not be submitted.
-// here, clearing the canvas will be prevented if this method is used
+// for example, if you use this method on a "submit" button, the form will not be submitted and the page will not be refreshed.
+// this can be used for a form that toggles the mode (rectangle / dot)
