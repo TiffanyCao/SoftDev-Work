@@ -1,67 +1,41 @@
 //
 // SoftDev1 pd1
-// K0 --
+// K07 -- They lock us in the tower whenever we get caught
 // 2020-02-12
 
-var c = document.getElementById( "slate");
-var ctx = c.getContext( "2d");
-var start = null;
-var animating = true;
+var c = document.getElementById("slate");
+var ctx = c.getContext("2d");
+var id = 0;
+var progress = 0;
+var shrink = false;
 
-document.getElementById( "start").addEventListener( "click", () => {
-  window.requestAnimationFrame( function( step( Date.now())));
+document.getElementById("start").addEventListener("click", () => {
+  id = window.requestAnimationFrame(step);
 })
 
-function step( timestamp) {
-  if( !start)start = timestamp;
-  var progress = Date.now() - start;
-  ctx.beginPath();
-  ctx.arc( 300, 300, progress/20, 0, 2 * Math.PI);
-  ctx.fillStyle = "lightblue";
-  ctx.fill();
-  ctx.stroke();
-  if( progress/20 <= 300){
-    window.requestAnimationFrame( function( step( Date.now())));
+document.getElementById("stop").addEventListener("click", () => {
+  window.cancelAnimationFrame(id);
+  id = 0;
+})
+
+function step(){
+    ctx.beginPath();
+    if(!shrink){ //expanding
+      progress += 1;
+      if(progress >= c.width/2) shrink = true; //if the radius exceeds the canvas screen
+    }else{ //shrinking
+      progress -= 1;
+      if(progress <= 0){ //if the radius goes below zero
+        shrink = false;
+        progress = 0; //starting the cycle over again
+      }
+    }
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, c.width, c.height); //clearing the screen for the shrinking
+    //filling the circle
+    ctx.arc(c.width/2, c.height/2, progress, 0, 2 * Math.PI);
+    ctx.fillStyle = "lightblue";
+    ctx.fill();
+    ctx.stroke();
+    if(id != 0) window.requestAnimationFrame(step);
   }
-}
-
-window.requestAnimationFrame( function( step( Date.now())) );
-
-
-
-
-
-
-
-// drawingPath = []; //stores previous position
-
-// document.getElementById("clear").addEventListener("click", () => {
-//   ctx.fillStyle = "#fff";
-//   ctx.fillRect(0, 0, c.width, c.height);
-// });
-
-
-// c.addEventListener("click", (e) => {
-//   var x = e.offsetX;
-//   var y = e.offsetY;
-//   if (drawingPath.length == 0){ //store the first point
-//     drawingPath.push([x,y]);
-//   }
-//   ctx.beginPath();
-//   // drawing the dot first
-//   ctx.arc(x, y, 5, 0, 2 * Math.PI);
-//   ctx.fillStyle = "blue";
-//   ctx.fill();
-//   ctx.moveTo(drawingPath[0][0],drawingPath[0][1]); // moving to the dot position before the current position
-//   ctx.lineTo(x,y); // drawing a line from previous dot to current dot
-//   ctx.stroke();
-//   drawingPath = []; // clears the array
-//   drawingPath.push([x,y]); //stores current position as the "old" position in preparation for the next dot
-// })
-//
-//
-// document.getElementById("clear").addEventListener("click", () => {
-//   drawingPath = []; //clears the array for a fresh start
-//   ctx.fillStyle = "#fff";
-//   ctx.fillRect(0, 0, c.width, c.height);
-// });
