@@ -10,6 +10,8 @@ var progress = 0;
 var shrink = false;
 
 document.getElementById("start").addEventListener("click", () => {
+  //checks if id already exists (is not 0); if it does, don't set id to window animation frame again!
+  //this prevents the id from being something different every click and prevents the animation speeding up
   if(id == 0) id = window.requestAnimationFrame(step);
 })
 
