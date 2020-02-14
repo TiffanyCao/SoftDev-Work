@@ -1,6 +1,6 @@
 // Greyducks -- Tiffany Cao & Yaru Luo
 // SoftDev1 pd1
-// K08 --
+// K08 -- What is it saving the screen from?
 // 2020-02-13
 
 var c = document.getElementById("slate");
