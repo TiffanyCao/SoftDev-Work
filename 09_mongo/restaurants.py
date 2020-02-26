@@ -1,4 +1,4 @@
-#Tiffany Cao & Kenneth Chin
+#Tiffany Cao & Kenneth Chin & Yaru Luo
 #SoftDev2 pd1
 #K09: Yummy Mongo Py
 #2020-02-26
