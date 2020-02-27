@@ -18,12 +18,22 @@ with open("primer-dataset.json", "r") as file:
 
 def findBorough(borough):
   '''All restaurants in a specified borough'''
-  results = db.catalog.find({ "borough": borough })
+  results = catalog.find({ "borough": borough })
   print("Borough: {}".format(borough))
   print("Results Found: {}".format(results.count()))
   print() 
   for x in results:
     print(x["name"])
 
-findBorough("Queens")
+#findBorough("Queens")
 
+def findZip(zip):
+  '''All restaurants in a specified zipcode'''
+  results = catalog.find({ "address.zipcode": zip })
+  print("Zipcode: {}".format(zip))
+  print("Results Found: {}".format(results.count()))
+  print()
+  for x in results:
+    print(x["name"])
+
+findZip("11355")
