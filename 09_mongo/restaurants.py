@@ -59,3 +59,14 @@ def findScore(zip, score):
     print(x["name"])
 
 #findScore("10019", 4)
+
+def findCuisine(zip, cuisine):
+  '''All restaurants in a specified zip code with a specified cuisine.'''
+  results = catalog.find({ "address.zipcode": zip, "cuisine": cuisine })
+  print("Zipcode: {}  Cuisine: {}".format(zip, cuisine))
+  print("Results Found: {}".format(results.count()))
+  print()
+  for x in results:
+    print(x["name"])
+
+#findCuisine("11355", "Bakery")
