@@ -24,9 +24,33 @@ with open("spongebob.json", "r") as file:  #read in json data
 def findEpisode(season, number):
   '''Episode name from the specified season and episode number.'''
   results = db.episodes.find({ "season": season, "number": number })
+  #formatting printed results
   print("Episode: {}  Number: {}".format(season, number))
   print("Results Found: {}".format(results.count()))
+  print()
   for x in results:
-    print(x["name"])
+    print("Episode Title: {}".format(x["name"]))
+    if(x["summary"] == ""):
+      print("No summary available.")
+    else:
+      print(x["summary"][3:-4] + "\n")
 
-findEpisode(1, 1)
+#findEpisode(1, 1)
+
+def findSeason(season):
+  '''All episodes from specified season.'''
+  results = db.episodes.find({ "season": season })
+  #formatting printed results
+  print("Season: {}".format(season))
+  print("Results Found: {}".format(results.count()))
+  print()
+  for x in results:
+    print("Episode {}:  {}".format(x["number"], x["name"]))
+    if(x["summary"] == ""):
+      print("No summary available." + "\n")
+    else:
+      print(x["summary"][3:-4] + "\n")
+
+findSeason(1)
+
+
