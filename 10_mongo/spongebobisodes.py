@@ -30,7 +30,7 @@ def findEpisode(season, number):
   print()
   for x in results:
     print("Episode Title: {}".format(x["name"]))
-    if(x["summary"] == ""):
+    if(x["summary"] == "" or x["summary"] is None):
       print("No summary available.")
     else:
       print(x["summary"][3:-4] + "\n")
@@ -46,11 +46,26 @@ def findSeason(season):
   print()
   for x in results:
     print("Episode {}:  {}".format(x["number"], x["name"]))
-    if(x["summary"] == ""):
+    if(x["summary"] == "" or x["summary"] is None):
       print("No summary available." + "\n")
     else:
       print(x["summary"][3:-4] + "\n")
 
-findSeason(1)
+#findSeason(1)
+#findSeason(2)
 
+def onAir(airdate):
+  '''Episode from the specified airing date.'''
+  results = db.episodes.find({ "airdate": airdate })
+  #formatting printed results
+  print("Given Date: {}".format(airdate))
+  print("Results Found: {}".format(results.count()))
+  print()
+  for x in results:
+    print("Season {} Episode {}: {}".format(x["season"], x["number"], x["name"]))
+    if(x["summary"] == "" or x["summary"] is None):
+      print("No summary available." + "\n")
+    else:
+      print(x["summary"][3:-4] + "\n")
 
+onAir("2001-03-06")
