@@ -14,16 +14,21 @@ db = client.eggcellent
 #The link to the API is: http://www.tvmaze.com/api
 #The link to the JSON file for Spongebob Squarepants episodes is: http://api.tvmaze.com/singlesearch/shows?q=spongebob-squarepants&embed=episodes
 
+#For import mechanism, we used the curl tool for the url to create a JSON file.
+#Using bson.json_util, we passed the file through the reader and inserted the contents to a collection called info.
+#Because the JSON file consisted of only one extremely long line and was not formatted properlly, we treated the document like a dictionary to get
+#to the episodes. We then inserted every episode's information as a document in another collection named episodes.
+
 info = db.info
 with open("spongebob.json", "r") as file:  #read in json data
   content = file.readlines()
   if (info.count() == 0):
-    for line in content:
+    for line in content:  #insert single line
       info.insert_one(loads(line))
     for x in info.find({}):
       #print(x)
       temp = x["_embedded"]["episodes"]
-      for y in temp:
+      for y in temp:  #insert every episode's information
         db.episodes.insert_one(y)
 
 def findEpisode(season, number):
@@ -89,3 +94,18 @@ def findWords(key):
 
 findWords("Sandy Cheeks")
 findWords("Squidward")
+
+
+print("------ Find an episode by giving a season and episode number. ------")
+season = input("Please enter a season: ")
+number = input("Please enter an episode number: ")
+while(not season.isnumeric()):
+  season = input("Please enter a number: ")
+while(not number.isnumeric()):
+  number = input("Please enter a number: ")
+
+findEpisode(int(season),int(number))
+
+print("------ Find episodes with the given key words or phrases. ------")
+word = input("Please enter key words: ")
+findWords(word)
