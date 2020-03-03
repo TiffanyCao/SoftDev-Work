@@ -9,6 +9,11 @@ from pymongo import MongoClient
 client = MongoClient("localhost", 27017)
 db = client.spongebob
 
+#The data bank used was the Spongebob Squarepants Episode dataset from TV Maze API
+#This file provides numerous details about every SBSP episode in all the seasons, including episode summary, airtime, airdate, and more.
+#The link to the API is: http://www.tvmaze.com/api
+#The link to the JSON file for Spongebob Squarepants episodes is: http://api.tvmaze.com/singlesearch/shows?q=spongebob-squarepants&embed=episodes
+
 info = db.info
 with open("spongebob.json", "r") as file:  #read in json data
   content = file.readlines()
@@ -25,7 +30,7 @@ def findEpisode(season, number):
   '''Episode name from the specified season and episode number.'''
   results = db.episodes.find({ "season": season, "number": number })
   #formatting printed results
-  print("Episode: {}  Number: {}".format(season, number))
+  print("Season: {}  Episode: {}".format(season, number))
   print("Results Found: {}".format(results.count()))
   print()
   for x in results:
@@ -68,4 +73,18 @@ def onAir(airdate):
     else:
       print(x["summary"][3:-4] + "\n")
 
-onAir("2001-03-06")
+#onAir("2001-03-06")
+
+def findWords(key):
+  keyword = ".*" + key + ".*"
+  results = db.episodes.find({"summary": {"$regex": keyword }})
+  print("Key Word: {}".format(key))
+  print("Results Found: {}".format(results.count()))
+  print()
+  for x in results:
+    print("Season: {}  Episode: {}".format(x["season"], x["number"]))
+    print("Episode Title: {}".format(x["name"]))
+    print(x["summary"][3:-4] + "\n")
+
+#findWords("Sandy Cheeks")
+#findWords("Squidward")
