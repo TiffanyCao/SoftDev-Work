@@ -1,4 +1,4 @@
-#Tiffany Cao & Ethan Chen
+#Team Eggcellent: Tiffany Cao & Ethan Chen
 #SoftDev2 pd1
 #K10: Import/Export Bank
 #2020-02-29
@@ -7,7 +7,7 @@ from bson.json_util import loads
 from pymongo import MongoClient
 
 client = MongoClient("localhost", 27017)
-db = client.spongebob
+db = client.eggcellent 
 
 #The data bank used was the Spongebob Squarepants Episode dataset from TV Maze API
 #This file provides numerous details about every SBSP episode in all the seasons, including episode summary, airtime, airdate, and more.
@@ -40,7 +40,7 @@ def findEpisode(season, number):
     else:
       print(x["summary"][3:-4] + "\n")
 
-#findEpisode(1, 1)
+findEpisode(1, 1)
 
 def findSeason(season):
   '''All episodes from specified season.'''
@@ -56,8 +56,8 @@ def findSeason(season):
     else:
       print(x["summary"][3:-4] + "\n")
 
-#findSeason(1)
-#findSeason(2)
+findSeason(1)
+findSeason(2)
 
 def onAir(airdate):
   '''Episode from the specified airing date.'''
@@ -73,11 +73,12 @@ def onAir(airdate):
     else:
       print(x["summary"][3:-4] + "\n")
 
-#onAir("2001-03-06")
+onAir("2001-03-06")
 
 def findWords(key):
   keyword = ".*" + key + ".*"
   results = db.episodes.find({"summary": {"$regex": keyword }})
+  #formatting printed results
   print("Key Word: {}".format(key))
   print("Results Found: {}".format(results.count()))
   print()
@@ -86,5 +87,5 @@ def findWords(key):
     print("Episode Title: {}".format(x["name"]))
     print(x["summary"][3:-4] + "\n")
 
-#findWords("Sandy Cheeks")
-#findWords("Squidward")
+findWords("Sandy Cheeks")
+findWords("Squidward")
