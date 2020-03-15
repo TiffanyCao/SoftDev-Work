@@ -3,21 +3,20 @@
 #K11 --
 #2020-03-05
 from flask import Flask, render_template, request,session
-from pymongo import MongoClient
+# from pymongo import MongoClient
 import json
 
-client = MongoClient("localhost", 27017)
-anime = client.weeb.anime
-anime.drop()
-file = open("anime-offline-database.json", "r")
-doc = json.load(file)
+# client = MongoClient("localhost", 27017)
+# anime = client.weeb.anime
+# anime.drop()
+# file = open("anime-offline-database.json", "r")
+# doc = json.load(file)
 
 app = Flask(__name__)
 
 @app.route("/", methods=['GET'])
 def form():
-
-    render_template("home.html")
+    return render_template("home.html")
 
 
 @app.route("/results", methods=['GET'])
@@ -25,7 +24,7 @@ def finished():
     li=[]
     for x in anime.find({"status": "FINISHED"}):
         li.append(x["title"])
-    render_template("results.html", collection=li)
+    return render_template("results.html", collection=li)
 def rec():
     all=[]
     li=[]
@@ -36,7 +35,7 @@ def rec():
         if n not in num:
             num.append(n)
             li.append(all[n])
-    render_template("results.html",collection=li)
+    return render_template("results.html",collection=li)
 def gallery():
     all=[]
     pic=[]
@@ -44,7 +43,7 @@ def gallery():
     for x in anime.find({{},{"title":1} }):
         all.append(x["title"]) #easier way??
         pic.append(x["picture"])
-    render_template("gallery.html",titles=all,pic=pic)
+    return render_template("gallery.html",titles=all,pic=pic)
 
 if __name__ == "__main__":
     app.debug = True
