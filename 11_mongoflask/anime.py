@@ -1,22 +1,27 @@
-from bson.json_util import loads
+#Amanda Zheng, Tiffany Cao, Team Blank
+#K10 -- Import/Export Bank
+#K11 --
+#2020-03-05
+from flask import Flask, render_template, request,session
 from pymongo import MongoClient
 import json
-
+from bson.json_util import loads
 client = MongoClient("localhost", 27017)
 anime = client.weeb.anime
+anime.drop()
+file = open("anime.json", "r")
+doc = file.readlines()
+for x in doc:
+    anime.insert_one(loads(x))
 
-def create():
-    anime.drop()
-    file = open("anime-offline-database.json", "r")
-    doc = json.load(file)
-    print("finished")
-    print()
+def findAnime(a):
+    return anime.find( { "status": a },{ "name": 1,"_id":0} )
 
-def finished():
-    li=[]
-    for x in anime.find({"status": "FINISHED"}):
-        li.append(x["title"])
-    print(li)
+for result in findAnime("FINISHED"):
+   print(result["title"])
 
-create()
-finished()
+app = Flask(__name__)
+
+if __name__ == "__main__":
+    app.debug = True
+    app.run()
