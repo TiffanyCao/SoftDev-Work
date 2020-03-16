@@ -20,40 +20,56 @@ K
       <font face = "Didot">
         <br>
         <h1> ANIME CENTER </h1><br>
+        <div style = "color: red;">
+          {% set messages = get_flashed_messages() %}
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+        </div>
+        <br>
         <form action = "/" method = "POST">
           <button type = "submit" name = "search" class = "btn btn-info">Search</button><br><br>
         </form>
         {% if tags == True %}
-          <form action = "/results" method = "GET">
+          <form action = "/results" id = "choose">
               <!-- <input type = "text" value = "first,second,third" data-role = "tagsinput" placeholder="Add tags"></input><br><br> -->
-              <input type = "checkbox" name = "ova"> OVA <br>
-              <input type = "checkbox" name = "movie"> Movie <br>
-              <input type = "checkbox" name = "special"> Special <br><br>
-              <button type = "submit" class = "btn btn-outline-danger">Submit</button>
+              <input type = "text" name = "findstuff" placeholder = "Enter title here..."><br><br>
+              <h5 style = "color: #736CED;">Type: </h5>
+              <div class="drop" style = "width:200px;">
+                <select name = "type" form = "choose">
+                  <option value = "0">Choose a type</option>
+                  <option value = "OVA"> OVA </option>
+                  <option value = "Movie"> Movie </option>
+                  <option value = "Special"> Special </option>
+                  <option value = "No preference"> No preference </option>
+                </select>
+              </div><br>
+              <h5 style = "color: #736CED;">Status: </h5>
+              <div class="drop" style = "width:200px;">
+                <select name = "status" form = "choose">
+                  <option value = "0">Choose the status</option>
+                  <option value = "Currently"> Currently </option>
+                  <option value = "Finished"> Finished </option>
+                  <option value = "Upcoming"> Upcoming </option>
+                  <option value = "No preference"> No preference </option>
+                </select>
+              </div><br>
+              <h5 style = "color: #736CED;">Episodes: </h5>
+              <div class="drop" style = "width:200px;">
+                <select name = "episodes" form = "choose">
+                  <option value = "0">Choose the number of episodes</option>
+                  <option value = "Less than"> Less than </option>
+                  <option value = "Greater than"> Greater than </option>
+                </select>
+              </div>
+              <input type = "number" name = "eps" placeholder = "Enter number here..." style = "margin-left: 15px; margin-top: 10px;"><br><br>
+              <button type = "submit" name = "searching" class = "btn btn-outline-danger">Submit</button><br><br>
           </form>
           <br>
         {% endif %}
         <form action = "/" method = "POST">
-          <button type = "submit" name = "list" class = "btn btn-info">Lists</button><br><br>
+          <button type = "submit" name = "random" class = "btn btn-info">Random</button><br><br>
         </form>
-        {% if list == True %}
-          <form action = "/results" method = "GET">
-              <a href = "/ovalist"> OVAs </a><br>
-              <a href = "/movielist"> Movies </a><br>
-              <a href = "/speciallist"> Specials </a><br>
-          </form>
-          <br>
-        {% endif %}
-        <form action = "/" method = "POST">
-          <button type = "submit" name = "find" class = "btn btn-info">Find an anime!</button><br><br>
-        </form>
-        {% if find == True %}
-          <form action = "/results" method = "GET">
-              <input type = "text" name = "findstuff" placeholder = "Enter search terms here..."><br><br>
-              <button type = "submit" class = "btn btn-outline-danger">Submit</button>
-          </form>
-          <br>
-        {% endif %}
       </font>
     </center>
   </body>

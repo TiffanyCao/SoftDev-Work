@@ -22,13 +22,10 @@ K
         <h1> ANIME CENTER </h1><br>
         <h2 style = "color: #736CED;"> Results <h2><br>
         <h5> You searched: <div style = "color: #E54B4B;">
-          {% if list == True %}
-            {% for item in search %}
-              {{ item }}<br>
-            {% endfor %}
-          {% else %}
-            {{ search }}
-          {% endif %}
+          Keywords: {{ search }}<br>
+          Type: {{ type }}<br>
+          Status: {{ status }}<br>
+          Episodes: {{ episodes }}<br>
         </div></h5><br>
         <h5> Your results: </h5><br>
 
