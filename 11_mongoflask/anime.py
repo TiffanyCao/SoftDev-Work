@@ -41,6 +41,9 @@ def findType(type):
     #print(anime.find({ "type": type }).count())
     return anime.find({ "type": type })
 
+def findRand(num):
+    return anime.aggregate([{ "$sample": { "size": num }}])
+
 #for result in findStatus("CURRENTLY"):
     #if (result["title"]==""):
       #print("No Name Found")
@@ -65,6 +68,11 @@ def findType(type):
     #else:
       #print (result["title"])
 
+#for result in findRand(10):
+   #if (result["title"]==""):
+     #print("No Name Found")
+   #else:
+     #print (result["title"])
 
 if __name__ == "__main__":
     app.debug = True
