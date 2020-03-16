@@ -1,6 +1,5 @@
 #Amanda Zheng, Tiffany Cao, Team Blank
-#K10 -- Import/Export Bank
-#K11 --
+#K11 -- Ay Mon Go Git It From Yer Flask
 #2020-03-05
 from flask import Flask, render_template, request, session, redirect
 # from pymongo import MongoClient
@@ -12,27 +11,40 @@ import json
 # file = open("anime-offline-database.json", "r")
 # doc = json.load(file)
 
+
 app = Flask(__name__)
 
-@app.route("/", methods=['GET'])
+@app.route("/", methods=['GET', 'POST'])
 def form():
-    check = request.args.get('search')
-    print(check)
-    if check is None:
-        return render_template("home.html", tags = False)
-    else:
-        return render_template("home.html", tags = True)
+    tags = False
+    list = False
+    find = False
+    check = request.form.get('search')
+    check2 = request.form.get('list')
+    check3 = request.form.get('find')
+    if check is not None:
+        tags = True
+    if check2 is not None:
+        list = True
+    if check3 is not None:
+        find = True
+    return render_template("home.html", tags = tags, list = list, find = find)
 
-# @app.route("/search", methods=['GET'])
-# def search():
-#     return render_template("home.html", tags = True)
 
-@app.route("/results", methods=['GET'])
+@app.route("/results", methods=['GET', 'POST'])
 def start():
     if request.args.get('ova') or request.args.get('movie') or request.args.get('special'):
-        return render_template("results.html")
+        li = []
+        if request.args.get('ova'): li.append("OVA")
+        if request.args.get('movie'): li.append("Movie")
+        if request.args.get('special'): li.append("Special")
+        return render_template("results.html", search = li, list = True, length = len(li))
+    elif request.args.get('findstuff'):
+        print(request.args.get('findstuff'))
+        return render_template("results.html", search = request.args.get('findstuff'), list = False)
     else:
         return redirect('error')
+
 def finished():
     li=[]
     for x in anime.find({"status": "FINISHED"}):

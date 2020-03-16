@@ -20,8 +20,8 @@ K
       <font face = "Didot">
         <br>
         <h1> ANIME CENTER </h1><br>
-        <form action = "/">
-          <button type = "submit" name = "search" class = "btn btn-primary">Search</button><br><br>
+        <form action = "/" method = "POST">
+          <button type = "submit" name = "search" class = "btn btn-info">Search</button><br><br>
         </form>
         {% if tags == True %}
           <form action = "/results" method = "GET">
@@ -33,8 +33,27 @@ K
           </form>
           <br>
         {% endif %}
-        <button type = "submit" class = "btn btn-primary">Lists</button><br><br>
-        <button type = "submit" class = "btn btn-primary">Find an anime!</button><br><br>
+        <form action = "/" method = "POST">
+          <button type = "submit" name = "list" class = "btn btn-info">Lists</button><br><br>
+        </form>
+        {% if list == True %}
+          <form action = "/results" method = "GET">
+              <a href = "/ovalist"> OVAs </a><br>
+              <a href = "/movielist"> Movies </a><br>
+              <a href = "/speciallist"> Specials </a><br>
+          </form>
+          <br>
+        {% endif %}
+        <form action = "/" method = "POST">
+          <button type = "submit" name = "find" class = "btn btn-info">Find an anime!</button><br><br>
+        </form>
+        {% if find == True %}
+          <form action = "/results" method = "GET">
+              <input type = "text" name = "findstuff" placeholder = "Enter search terms here..."><br><br>
+              <button type = "submit" class = "btn btn-outline-danger">Submit</button>
+          </form>
+          <br>
+        {% endif %}
       </font>
     </center>
   </body>
