@@ -1,6 +1,7 @@
 #Amanda Zheng, Tiffany Cao, Team Blank
 #K11 -- Ay Mon Go Git It From Yer Flask
 #2020-03-05
+import os
 from flask import Flask, render_template, request, session, redirect, flash, url_for
 import anime
 
@@ -17,8 +18,13 @@ def form():
 
 @app.route("/results", methods=['GET', 'POST'])
 def start():
-    if request.form.get('random') is not None:
-        return render_template("results.html", query = False)
+   # print(request.form.get('supporttype'))
+   # if request.form.get('supporttype') is not None:
+   #   flash("Here " + request.form.get('supporttype'))
+   #   return redirect(url_for('error'))
+    if request.form.get('random') is not None or request.form.get('refresh') is not None:
+      random = anime.findRand(10)
+      return render_template("results.html", query = False, rand = True, random = random)
     # print("1" + request.args.get('findstuff'))
     # print(request.args.get('type'))
     # print(request.args.get('status'))
@@ -47,36 +53,19 @@ def start():
             return redirect(url_for('form'))
         else:
             episodes += " " + request.args.get('eps') + " episode(s)"
-    return render_template("results.html", query = True, search = search, type = type, status = status, episodes = episodes)
+    return render_template("results.html", query = True, rand = False, search = search, type = type, status = status, episodes = episodes)
 
-# def finished():
-#     li=[]
-#     for x in anime.find({"status": "FINISHED"}):
-#         li.append(x["title"])
-#     return render_template("results.html", collection=li)
-# def rec():
-#     all=[]
-#     li=[]
-#     for x in anime.find({{},{"title":1} }):
-#         all.append(x["title"]) #easier way??
-#     for x in range(10):
-#         n=random.randint(0,len(all)-1)
-#         if n not in num:
-#             num.append(n)
-#             li.append(all[n])
-#     return render_template("results.html",collection=li)
-# def gallery():
-#     all=[]
-#     pic=[]
-#     li=[]
-#     for x in anime.find({{},{"title":1} }):
-#         all.append(x["title"]) #easier way??
-#         pic.append(x["picture"])
-#     return render_template("gallery.html",titles=all,pic=pic)
+@app.route("/single", methods = ['GET', 'POST'])
+def one():
+    print(request.form.get('supporttype'))
+    if request.form.get('supporttype') is not None:
+      flash("Here " + request.form.get('supporttype'))
+      return redirect(url_for('error'))
+    return redirect(url_for('form'))
 
-# @app.route("/error", methods=['GET'])
-# def error():
-#     return render_template("error.html")
+@app.route("/error", methods=['GET'])
+def error():
+    return render_template("error.html")
 
 if __name__ == "__main__":
     app.debug = True

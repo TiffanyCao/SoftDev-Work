@@ -20,7 +20,13 @@ K
       <font face = "Didot">
         <br>
         <h1> ANIME CENTER </h1><br>
-        Error
+        Error<br>
+	<div style = "color: red;">
+          {% set messages = get_flashed_messages() %}
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+        </div>
       </font>
     </center>
   </body>
