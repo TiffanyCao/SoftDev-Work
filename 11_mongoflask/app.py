@@ -2,15 +2,7 @@
 #K11 -- Ay Mon Go Git It From Yer Flask
 #2020-03-05
 from flask import Flask, render_template, request, session, redirect, flash, url_for
-# from pymongo import MongoClient
-import json
-
-# client = MongoClient("localhost", 27017)
-# anime = client.weeb.anime
-# anime.drop()
-# file = open("anime-offline-database.json", "r")
-# doc = json.load(file)
-
+import anime
 
 app = Flask(__name__)
 app.secret_key = "help"
@@ -86,4 +78,5 @@ def start():
 
 if __name__ == "__main__":
     app.debug = True
+    anime.create()
     app.run()
