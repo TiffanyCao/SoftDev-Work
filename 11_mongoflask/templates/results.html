@@ -20,6 +20,7 @@ K
       <font face = "Didot">
         <br>
         <h1> ANIME CENTER </h1><br>
+        {% if query == True %}
         <h2 style = "color: #736CED;"> Results <h2><br>
         <h5> You searched: <div style = "color: #E54B4B;">
           Keywords: {{ search }}<br>
@@ -28,7 +29,7 @@ K
           Episodes: {{ episodes }}<br>
         </div></h5><br>
         <h5> Your results: </h5><br>
-
+        {% endif %}
         <form action = "/">
           <button type = "submit" name = "back" class = "btn btn-primary">Return</button><br>
         </form>

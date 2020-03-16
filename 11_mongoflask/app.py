@@ -17,11 +17,13 @@ def form():
 
 @app.route("/results", methods=['GET', 'POST'])
 def start():
-    print("1" + request.args.get('findstuff'))
-    print(request.args.get('type'))
-    print(request.args.get('status'))
-    print(request.args.get('episodes'))
-    print("5" + request.args.get('eps'))
+    if request.form.get('random') is not None:
+        return render_template("results.html", query = False)
+    # print("1" + request.args.get('findstuff'))
+    # print(request.args.get('type'))
+    # print(request.args.get('status'))
+    # print(request.args.get('episodes'))
+    # print("5" + request.args.get('eps'))
     if (request.args.get('findstuff') == "" and
        request.args.get('type') == "0" and
        request.args.get('status') == "0" and
@@ -45,7 +47,7 @@ def start():
             return redirect(url_for('form'))
         else:
             episodes += " " + request.args.get('eps') + " episode(s)"
-    return render_template("results.html", search = search, type = type, status = status, episodes = episodes)
+    return render_template("results.html", query = True, search = search, type = type, status = status, episodes = episodes)
 
 # def finished():
 #     li=[]
