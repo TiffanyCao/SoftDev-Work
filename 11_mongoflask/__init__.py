@@ -39,7 +39,8 @@ def start():
     if request.args.get('type') and request.args.get('type') != "0": type = request.args.get('type')
     if request.args.get('status') and request.args.get('status') != "0": status = request.args.get('status')
     if request.args.get('episodes') and request.args.get('episodes') != "0":
-        episodes = request.args.get('episodes')
+        if request.args.get('episodes') == "$lte": episodes = "Less than or equal to "
+        if request.args.get('episodes') == "$gte": episodes = "Greater than or equal to "
         if request.args.get('eps') == "":
             flash("Please enter a number for episodes.")
             return redirect(url_for('form'))
@@ -53,7 +54,7 @@ def start():
     mode=request.args.get("episodes")
     ep=request.args.get("eps")
     title=request.args.get("findstuff")
-    t=anime.findType(types)
+    '''t=anime.findType(types)
     s=anime.findStatus(statuses)
     e=anime.findEp(ep,mode)
     h=anime.findTitle(title)
@@ -73,11 +74,8 @@ def start():
             results.append(x)
             count+=1
         if count>50:
-            break
-    # results.append(len(lengthT))
-    # results.append(len(lengthE))
-    # results.append(len(lengthS))
-    # results.append(len(lengthH))
+            break'''
+    results = anime.test(types, statuses, mode, ep, title) 
     return render_template("results.html", query = True, rand = False, search = search, type = type, status = status, episodes = episodes, results = results)
 
 @app.route("/single", methods = ['GET', 'POST'])
@@ -96,3 +94,4 @@ if __name__ == "__main__":
     app.debug = True
     anime.create()
     app.run()
+

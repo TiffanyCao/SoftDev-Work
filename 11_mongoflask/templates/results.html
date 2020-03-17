@@ -36,11 +36,11 @@ K
           Episodes: {{ episodes }}<br>
         </div></h5><br>
         <h5> Your results: </h5><br>
-        <ul>
+        <ol>
 	{% for item in results %}
 	  <li>{{ item }}</li>
 	{% endfor %}
-	</ul>
+	</ol>
         {% endif %}
         {% if query == False and rand == True %}
         <h2 style = "color: #736CED;"> Random Animes </h2><br>

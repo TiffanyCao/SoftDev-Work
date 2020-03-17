@@ -64,6 +64,69 @@ def findType(type):
         answer.append(x['title'].encode('utf8'))
     return answer
 
+def findTS(type, status):
+    result = anime.find({ "type": type, "status": status })
+    answer = []
+    for x in result:
+      answer.append(x['title'])
+    print(len(answer))
+    return answer
+
+#print(findTS("OVA", "CURRENTLY"))
+
+def findTSE(type, status, eps, mode):
+    result = anime.find({ "type": type, "status": status, "episodes": { mode: eps }})
+    answer = []
+    for x in result:
+      answer.append(x['title'])
+    print(len(answer))
+    return answer
+
+#print(findTSE("OVA", "CURRENTLY", 0, "$lte"))
+
+def all(type, status, eps, mode, title):
+    if(type != "0" and status == "0" and mode == "0" and title == ""):
+      result = findType(type)
+    elif(type != "0" and status != "0" and mode == "0" and title == ""):
+      result = anime.find({ "type": type, "status": status })
+    #elif(type != "0" and status == "0" and mode == "0" 
+    result = anime.find({ "type": type, "status": status, "episodes": { mode: eps }, "title": { "$regex": title, "$options" : "i" }})
+    answer = []
+    for x in result:
+      answer.append(x['title'])
+    print(len(answer))
+    return answer
+
+def test(type, status, mode, eps, title):
+    t = []
+    s = []
+    if(type == "0"):
+      t = ["OVA", "Movie", "Special", "ONA", "TV"]
+    else:
+      t.append(type)
+    if(status == "0"):
+      s = ["CURRENTLY", "UPCOMING", "FINISHED", "UNKNOWN"]
+    else:
+      s.append(status)
+    if(title == ""):
+      if(mode == "0"):
+        result = anime.find({ "type": { "$in": t }, "status": { "$in": s }})
+      else:
+        result = anime.find({ "type": { "$in": t }, "status": { "$in": s }, "episodes": { mode: eps }})
+    else:
+      if(mode == "0"):
+        result = anime.find({ "type": { "$in": t }, "status": { "$in": s }, "title": { "$regex": title, "$options" : "i" }})
+      else:
+        result = anime.find({ "type": { "$in": t }, "status": { "$in": s }, "episodes": { mode: eps }, "title": { "$regex": title, "$options" : "i" }})
+    answer = []
+    for x in result:
+      answer.append(x['title'])
+    print(len(answer))
+    return answer
+
+#for x in test("OVA", "CURRENTLY", "$lte", 0, ""):
+#  print(x)
+
 def findRand(num):
     return anime.aggregate([{ "$sample": { "size": num }}])
 
