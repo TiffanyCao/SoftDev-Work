@@ -22,64 +22,50 @@ def create():
 
 def findStatus(stat):
     if stat==0:
-        return anime.find({})
-    return anime.find({ "status": stat })
+        result= anime.find({})
+    else:
+        result= anime.find({ "status": stat })
+    answer=[]
+    for x in result:
+        answer.append(x["title"].encode('utf8'))
+    return answer
 
 def findTitle(name):
     if name=="":
-        return anime.find({})
-    name=".*"+name+".*"
-    #print(name)
-    #print(anime.find({ "title": { "$regex": name, "$options": "i" }}).count())
-    return anime.find({ "title": { "$regex": name, "$options" : "i" }})
+        result= anime.find({})
+    else:
+        name=".*"+name+".*"
+        result= anime.find({ "title": { "$regex": name, "$options" : "i" }})
+    answer=[]
+    for x in result:
+        answer.append(x['title'].encode('utf8'))
+    return answer
 
 def findEp(num,mode):
     if mode==0 or num == "":
-        return anime.find({})
+        result= anime.find({})
     if(mode=="Less"):
-        return anime.find({ "episodes": { "$lte": num }})
+        result= anime.find({ "episodes": { "$lte": num }})
     else:
-        return anime.find({ "episodes": { "$gte": num }})
+        result= anime.find({ "episodes": { "$gte": num }})
+    answer=[]
+    for x in result:
+        answer.append(x['title'].encode('utf8'))
+    return answer
+
 
 def findType(type):
     if type==0:
-        return anime.find({})
-    #print(type)
-    #print(anime.find({ "type": type }).count())
-    return anime.find({ "type": type })
+        result=anime.find({})
+    else:
+        result= anime.find({ "type": type })
+    answer=[]
+    for x in result:
+        answer.append(x['title'].encode('utf8'))
+    return answer
 
 def findRand(num):
     return anime.aggregate([{ "$sample": { "size": num }}])
-
-#for result in findStatus("CURRENTLY"):
-    #if (result["title"]==""):
-      #print("No Name Found")
-    #else:
-      #print (result["title"])
-
-#for result in findTitle("girl"):
-    #if (result["title"]==""):
-      #print("No Name Found")
-    #else:
-      #print (result["title"])
-
-#for result in findEp(20):
-    #if (result["title"]==""):
-      #print("No Name Found")
-    #else:
-      #print (result["title"])
-
-#for result in findType("OVA"):
-    #if (result["title"]==""):
-      #print("No Name Found")
-    #else:
-      #print (result["title"])
-
-#for result in findRand(10):
-   #if (result["title"]==""):
-     #print("No Name Found")
-   #else:
-     #print (result["title"])
 
 if __name__ == "__main__":
     app.debug = True

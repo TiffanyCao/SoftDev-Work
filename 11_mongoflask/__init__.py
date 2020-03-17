@@ -58,38 +58,26 @@ def start():
     e=anime.findEp(ep,mode)
     h=anime.findTitle(title)
     loop=[]
-    lengthT = []
-    for x in t:
-      lengthT.append(x["title"])
-    lengthS = []
-    for x in s:
-      lengthS.append(x["title"])
-    lengthE = []
-    for x in e:
-      lengthE.append(x["title"])
-    lengthH = []
-    for x in h:
-      lengthH.append(x["title"])
-    if(len(lengthS)<len(lengthT) and len(lengthS)<len(lengthE) and len(lengthS)<len(lengthH)):
-        loop=lengthS
-    elif(len(lengthT)<len(lengthS) and len(lengthT)<len(lengthE) and len(lengthT)<len(lengthH)):
-        loop=lengthT
-    elif(len(lengthE)<len(lengthS) and len(lengthE)<len(lengthT) and len(lengthE)<len(lengthH)):
-        loop=lengthE
+    if(len(t)<len(s) and len(t)<len(e) and len(t)<len(h)):
+        loop=t
+    elif(len(s)<len(t) and len(s)<len(e) and len(s)<len(h)):
+        loop=s
+    elif(len(e)<len(s) and len(e)<len(t) and len(e)<len(h)):
+        loop=e
     else:
-        loop=lengthH
+        loop=h
     results = []
     count = 0
     for x in loop:
-        count+=1
-        if (x in lengthS) and (x in lengthT) and (x in lengthE) and (x in lengthH):
+        if (x in s) and (x in t) and (x in e) and (x in h):
             results.append(x)
+            count+=1
         if count>50:
             break
-    results.append(len(lengthT))
-    results.append(len(lengthE))
-    results.append(len(lengthS))
-    results.append(len(lengthH))
+    # results.append(len(lengthT))
+    # results.append(len(lengthE))
+    # results.append(len(lengthS))
+    # results.append(len(lengthH))
     return render_template("results.html", query = True, rand = False, search = search, type = type, status = status, episodes = episodes, results = results)
 
 @app.route("/single", methods = ['GET', 'POST'])
