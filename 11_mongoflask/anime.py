@@ -21,22 +21,29 @@ def create():
 #create()
 
 def findStatus(stat):
-    #print("status: " + stat)
-    #print(anime.find({ "status": stat }).count())
+    if stat==0:
+        return anime.find({})
     return anime.find({ "status": stat })
 
 def findTitle(name):
+    if name=="":
+        return anime.find({})
     name=".*"+name+".*"
     #print(name)
     #print(anime.find({ "title": { "$regex": name, "$options": "i" }}).count())
     return anime.find({ "title": { "$regex": name, "$options" : "i" }})
 
-def findEp(num):
-    #print("lte " + str(num))
-    #print(anime.find({ "episodes": { "$lte": num }}).count())
-    return anime.find({ "episodes": { "$lte": num }})
+def findEp(num,mode):
+    if mode==0:
+        return anime.find({})
+    if(mode=="Less"):
+        return anime.find({ "episodes": { "$lte": num }})
+    else:
+        return anime.find({ "episodes": { "$gte": num }})
 
 def findType(type):
+    if type==0:
+        return anime.find({})
     #print(type)
     #print(anime.find({ "type": type }).count())
     return anime.find({ "type": type })

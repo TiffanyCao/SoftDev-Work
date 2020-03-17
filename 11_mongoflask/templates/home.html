@@ -6,71 +6,71 @@ K
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <meta charset = "utf-8"/>
-    <title>  </title>
-    <!-- <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel = "stylesheet" href = "http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css"> -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src = "http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script> -->
-  </head>
-  <body style = "background-color: pink;">
-    <center>
-      <font face = "Didot">
-        <br>
-        <h1> ANIME CENTER </h1><br>
-        <div style = "color: red;">
-          {% set messages = get_flashed_messages() %}
-                {% for message in messages %}
-                {{ message }}
-                {% endfor %}
+<head>
+  <meta charset = "utf-8"/>
+  <title>  </title>
+  <!-- <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel = "stylesheet" href = "http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css"> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src = "http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script> -->
+</head>
+<body style = "background-color: pink;">
+  <center>
+    <font face = "Didot">
+      <br>
+      <h1> ANIME CENTER </h1><br>
+      <div style = "color: red;">
+        {% set messages = get_flashed_messages() %}
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+      </div>
+      <br>
+      <form action = "/" method = "POST">
+        <button type = "submit" name = "search" class = "btn btn-info">Search</button><br><br>
+      </form>
+      {% if tags == True %}
+      <form action = "/results" id = "choose">
+        <!-- <input type = "text" value = "first,second,third" data-role = "tagsinput" placeholder="Add tags"></input><br><br> -->
+        <input type = "text" name = "findstuff" placeholder = "Enter title here..."><br><br>
+        <h5 style = "color: #736CED;">Type: </h5>
+        <div class="drop" style = "width:200px;">
+          <select name = "type" form = "choose">
+            <option value = "0">Choose a type</option>
+            <option value = "OVA"> OVA </option>
+            <option value = "Movie"> Movie </option>
+            <option value = "Special"> Special </option>
+            <option value = "ONA"> ONA </option>
+            <option value = "TV"> TV </option>
+          </select>
+        </div><br>
+        <h5 style = "color: #736CED;">Status: </h5>
+        <div class="drop" style = "width:200px;">
+          <select name = "status" form = "choose">
+            <option value = "0">Choose the status</option>
+            <option value = "Currently"> Currently </option>
+            <option value = "Finished"> Finished </option>
+            <option value = "Upcoming"> Upcoming </option>
+          </select>
+        </div><br>
+        <h5 style = "color: #736CED;">Episodes: </h5>
+        <div class="drop" style = "width:200px;">
+          <select name = "episodes" form = "choose">
+            <option value = "0">Choose the number of episodes</option>
+            <option value = "Less than"> Less than </option>
+            <option value = "Greater than"> Greater than </option>
+          </select>
         </div>
-        <br>
-        <form action = "/" method = "POST">
-          <button type = "submit" name = "search" class = "btn btn-info">Search</button><br><br>
-        </form>
-        {% if tags == True %}
-          <form action = "/results" id = "choose">
-              <!-- <input type = "text" value = "first,second,third" data-role = "tagsinput" placeholder="Add tags"></input><br><br> -->
-              <input type = "text" name = "findstuff" placeholder = "Enter title here..."><br><br>
-              <h5 style = "color: #736CED;">Type: </h5>
-              <div class="drop" style = "width:200px;">
-                <select name = "type" form = "choose">
-                  <option value = "0">Choose a type</option>
-                  <option value = "OVA"> OVA </option>
-                  <option value = "Movie"> Movie </option>
-                  <option value = "Special"> Special </option>
-		              <option value = "ONA"> ONA </option>
-		              <option value = "TV"> TV </option>
-                </select>
-              </div><br>
-              <h5 style = "color: #736CED;">Status: </h5>
-              <div class="drop" style = "width:200px;">
-                <select name = "status" form = "choose">
-                  <option value = "0">Choose the status</option>
-                  <option value = "Currently"> Currently </option>
-                  <option value = "Finished"> Finished </option>
-                  <option value = "Upcoming"> Upcoming </option>
-                </select>
-              </div><br>
-              <h5 style = "color: #736CED;">Episodes: </h5>
-              <div class="drop" style = "width:200px;">
-                <select name = "episodes" form = "choose">
-                  <option value = "0">Choose the number of episodes</option>
-                  <option value = "Less than"> Less than </option>
-                  <option value = "Greater than"> Greater than </option>
-                </select>
-              </div>
-              <input type = "number" name = "eps" placeholder = "Enter number here..." style = "margin-left: 15px; margin-top: 10px;"><br><br>
-              <button type = "submit" name = "searching" class = "btn btn-outline-danger">Submit</button><br><br>
-          </form>
-          <br>
-        {% endif %}
-        <form action = "/results" method = "POST">
-          <button type = "submit" name = "random" class = "btn btn-info">Random</button><br><br>
-        </form>
-      </font>
-    </center>
-  </body>
+        <input type = "number" name = "eps" placeholder = "Enter number here..." style = "margin-left: 15px; margin-top: 10px;"><br><br>
+        <button type = "submit" name = "searching" class = "btn btn-outline-danger">Submit</button><br><br>
+      </form>
+      <br>
+      {% endif %}
+      <form action = "/results" method = "POST">
+        <button type = "submit" name = "random" class = "btn btn-info">Random</button><br><br>
+      </form>
+    </font>
+  </center>
+</body>
 </html>

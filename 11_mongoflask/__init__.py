@@ -53,7 +53,33 @@ def start():
             return redirect(url_for('form'))
         else:
             episodes += " " + request.args.get('eps') + " episode(s)"
-    return render_template("results.html", query = True, rand = False, search = search, type = type, status = status, episodes = episodes)
+    type2=request.form["type"]
+    status2=request.form["status"]
+    mode=request.form["episodes"]
+    ep=request.form["eps"]
+    title=request.form["findstuff"]
+    t=anime.findType(type2)
+    s=anime.findStatus(status2)
+    e=anime.findEp(ep,mode)
+    h=anime.findTitle(title)
+    loop=[]
+    if(len(s)<len(t) and len(s)<len(e) and len(s)<len(h)):
+        loop=s
+    elif(len(t)<len(s) and len(t)<len(e) and len(t)<len(h)):
+        loop=t
+    elif(len(e)<len(s) and len(e)<len(t) and len(e)<len(h)):
+        loop=e
+    else:
+        loop=h
+    results=[]
+    count =0
+    for x in loop:
+        count+=1
+        if (x in s) and (x in t) and (x in e) and (x in h):
+            results.append(x)
+        if count>50:
+            break
+    return render_template("results.html", query = True, rand = False, search = search, type = type, status = status, episodes = episodes, results = results)
 
 @app.route("/single", methods = ['GET', 'POST'])
 def one():

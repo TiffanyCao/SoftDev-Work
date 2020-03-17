@@ -6,29 +6,29 @@ K
 <!DOCTYPE html>
 
 <html>
-  <head>
-    <meta charset = "utf-8"/>
-    <title>  </title>
-    <!-- <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel = "stylesheet" href = "http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css"> -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!-- <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src = "http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script> -->
-    <script language="JavaScript" type="text/javascript">
-      function getsupport ( selectedtype )
-      {
-        document.testing.supporttype.value = selectedtype ;
-        document.testing.submit() ;
-      }
-    </script>
-  </head>
-  <body style = "background-color: pink;">
-    <center>
-      <font face = "Didot">
-        <br>
-        <h1> ANIME CENTER </h1><br>
-        {% if query == True and rand == False %}
-        <h2 style = "color: #736CED;"> Results <h2><br>
+<head>
+  <meta charset = "utf-8"/>
+  <title>  </title>
+  <!-- <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel = "stylesheet" href = "http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css"> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src = "http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script> -->
+  <script language="JavaScript" type="text/javascript">
+    function getsupport ( selectedtype )
+    {
+      document.testing.supporttype.value = selectedtype ;
+      document.testing.submit() ;
+    }
+  </script>
+</head>
+<body style = "background-color: pink;">
+  <center>
+    <font face = "Didot">
+      <br>
+      <h1> ANIME CENTER </h1><br>
+      {% if query == True and rand == False %}
+      <h2 style = "color: #736CED;"> Results <h2><br>
         <h5> You searched: <div style = "color: #E54B4B;">
           Keywords: {{ search }}<br>
           Type: {{ type }}<br>
@@ -36,38 +36,43 @@ K
           Episodes: {{ episodes }}<br>
         </div></h5><br>
         <h5> Your results: </h5><br>
+        <ul>
+        {% for item in results %}
+          <li>{{ item["title"] }}</li>
+        {% endfor %}
+        </ul>
         {% endif %}
-	{% if query == False and rand == True %}
-	  <h2 style = "color: #736CED;"> Random Animes </h2><br>
-	  {% for item in random %}
-	    <div class="card" style = "width: 50%;">
-	      <img class="card-img-top" src= {{ item["picture"] }} alt= "Image unable to load" style = "width: 50%; margin-top: 20px;">
-	      <div class="card-body">
-		<h5> Title: 
-		  <form action = "/single" name = "testing" method = "POST">
-          	    <input type="hidden" name="supporttype"/>
-           	      <a href="javascript:getsupport('here')"> {{ item["title"] }}</a>
-        	  </form> 
-		</h5>
-		Type: {{ item["type"] }}<br>
-		Status: {{ item["status"] }}<br>
-		Episodes: {{ item["episodes"] }}<br>
-		Sources:<br>
-		{% for x in item["sources"] %}
-		  <a href = {{ x }} target="_blank"> {{ x }}</a><br>
-		{% endfor %}
-	      </div>
-	    </div><br>
-	  {% endfor %}
-	{% endif %}
-	<br><br>
-	<form action = "/results" method = "POST">
-	  <button type = "submit" name = "refresh" class = "btn btn-info"> Refresh </button>
-	</form><br>
+        {% if query == False and rand == True %}
+        <h2 style = "color: #736CED;"> Random Animes </h2><br>
+        {% for item in random %}
+        <div class="card" style = "width: 50%;">
+          <img class="card-img-top" src= {{ item["picture"] }} alt= "Image unable to load" style = "width: 50%; margin-top: 20px;">
+          <div class="card-body">
+            <h5> Title:
+              <form action = "/single" name = "testing" method = "POST">
+                <input type="hidden" name="supporttype"/>
+                <a href="javascript:getsupport('here')"> {{ item["title"] }}</a>
+              </form>
+            </h5>
+            Type: {{ item["type"] }}<br>
+            Status: {{ item["status"] }}<br>
+            Episodes: {{ item["episodes"] }}<br>
+            Sources:<br>
+            {% for x in item["sources"] %}
+            <a href = {{ x }} target="_blank"> {{ x }}</a><br>
+            {% endfor %}
+          </div>
+        </div><br>
+        {% endfor %}
+        {% endif %}
+        <br><br>
+        <form action = "/results" method = "POST">
+          <button type = "submit" name = "refresh" class = "btn btn-info"> Refresh </button>
+        </form><br>
         <form action = "/" method = "POST">
           <button type = "submit" name = "back" class = "btn btn-primary">Return</button>
         </form><br><br><br>
       </font>
     </center>
   </body>
-</html>
+  </html>
