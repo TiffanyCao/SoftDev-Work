@@ -25,11 +25,6 @@ def start():
     if request.form.get('random') is not None or request.form.get('refresh') is not None:
       random = anime.findRand(10)
       return render_template("results.html", query = False, rand = True, random = random)
-    # print("1" + request.args.get('findstuff'))
-    # print(request.args.get('type'))
-    # print(request.args.get('status'))
-    # print(request.args.get('episodes'))
-    # print("5" + request.args.get('eps'))
     if (request.args.get('findstuff') == "" and
        request.args.get('type') == "0" and
        request.args.get('status') == "0" and
@@ -53,32 +48,48 @@ def start():
             return redirect(url_for('form'))
         else:
             episodes += " " + request.args.get('eps') + " episode(s)"
-    type2=request.form["type"]
-    status2=request.form["status"]
-    mode=request.form["episodes"]
-    ep=request.form["eps"]
-    title=request.form["findstuff"]
-    t=anime.findType(type2)
-    s=anime.findStatus(status2)
+    types=request.args.get("type")
+    statuses=request.args.get("status")
+    mode=request.args.get("episodes")
+    ep=request.args.get("eps")
+    title=request.args.get("findstuff")
+    t=anime.findType(types)
+    s=anime.findStatus(statuses)
     e=anime.findEp(ep,mode)
     h=anime.findTitle(title)
     loop=[]
-    if(len(s)<len(t) and len(s)<len(e) and len(s)<len(h)):
-        loop=s
-    elif(len(t)<len(s) and len(t)<len(e) and len(t)<len(h)):
-        loop=t
-    elif(len(e)<len(s) and len(e)<len(t) and len(e)<len(h)):
-        loop=e
+    lengthT = []
+    for x in t:
+      lengthT.append(x["title"])
+    lengthS = []
+    for x in s:
+      lengthS.append(x["title"])
+    lengthE = []
+    for x in e:
+      lengthE.append(x["title"])
+    lengthH = []
+    for x in h:
+      lengthH.append(x["title"])
+    if(len(lengthS)<len(lengthT) and len(lengthS)<len(lengthE) and len(lengthS)<len(lengthH)):
+        loop=lengthS
+    elif(len(lengthT)<len(lengthS) and len(lengthT)<len(lengthE) and len(lengthT)<len(lengthH)):
+        loop=lengthT
+    elif(len(lengthE)<len(lengthS) and len(lengthE)<len(lengthT) and len(lengthE)<len(lengthH)):
+        loop=lengthE
     else:
-        loop=h
-    results=[]
-    count =0
+        loop=lengthH
+    results = []
+    count = 0
     for x in loop:
         count+=1
-        if (x in s) and (x in t) and (x in e) and (x in h):
+        if (x in lengthS) and (x in lengthT) and (x in lengthE) and (x in lengthH):
             results.append(x)
         if count>50:
             break
+    results.append(len(lengthT))
+    results.append(len(lengthE))
+    results.append(len(lengthS))
+    results.append(len(lengthH))
     return render_template("results.html", query = True, rand = False, search = search, type = type, status = status, episodes = episodes, results = results)
 
 @app.route("/single", methods = ['GET', 'POST'])

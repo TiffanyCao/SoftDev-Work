@@ -34,7 +34,7 @@ def findTitle(name):
     return anime.find({ "title": { "$regex": name, "$options" : "i" }})
 
 def findEp(num,mode):
-    if mode==0:
+    if mode==0 or num == "":
         return anime.find({})
     if(mode=="Less"):
         return anime.find({ "episodes": { "$lte": num }})

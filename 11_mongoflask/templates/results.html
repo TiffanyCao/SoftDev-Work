@@ -37,10 +37,10 @@ K
         </div></h5><br>
         <h5> Your results: </h5><br>
         <ul>
-        {% for item in results %}
-          <li>{{ item["title"] }}</li>
-        {% endfor %}
-        </ul>
+	{% for item in results %}
+	  <li>{{ item }}</li>
+	{% endfor %}
+	</ul>
         {% endif %}
         {% if query == False and rand == True %}
         <h2 style = "color: #736CED;"> Random Animes </h2><br>
@@ -66,9 +66,11 @@ K
         {% endfor %}
         {% endif %}
         <br><br>
+	{% if rand == True and query == False %}
         <form action = "/results" method = "POST">
           <button type = "submit" name = "refresh" class = "btn btn-info"> Refresh </button>
         </form><br>
+	{% endif %}
         <form action = "/" method = "POST">
           <button type = "submit" name = "back" class = "btn btn-primary">Return</button>
         </form><br><br><br>
