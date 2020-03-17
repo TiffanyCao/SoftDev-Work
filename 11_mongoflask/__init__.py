@@ -1,4 +1,4 @@
-#Amanda Zheng, Tiffany Cao, Team Blank
+#Amanda Zheng, Tiffany Cao, Team IWANNADIE
 #K11 -- Ay Mon Go Git It From Yer Flask
 #2020-03-05
 import os
@@ -39,8 +39,7 @@ def start():
     if request.args.get('type') and request.args.get('type') != "0": type = request.args.get('type')
     if request.args.get('status') and request.args.get('status') != "0": status = request.args.get('status')
     if request.args.get('episodes') and request.args.get('episodes') != "0":
-        if request.args.get('episodes') == "$lte": episodes = "Less than or equal to "
-        if request.args.get('episodes') == "$gte": episodes = "Greater than or equal to "
+        episodes = request.args.get('episodes')
         if request.args.get('eps') == "":
             flash("Please enter a number for episodes.")
             return redirect(url_for('form'))
@@ -54,44 +53,44 @@ def start():
     mode=request.args.get("episodes")
     ep=request.args.get("eps")
     title=request.args.get("findstuff")
-    '''t=anime.findType(types)
+    t=anime.findType(types)
     s=anime.findStatus(statuses)
+    results=[]
     e=anime.findEp(ep,mode)
     h=anime.findTitle(title)
     loop=[]
-    if(len(t)<len(s) and len(t)<len(e) and len(t)<len(h)):
+    #results=[]
+    #results.append(int(ep))
+    if(len(t)<=len(e) and len(t)<=len(h) and len(t)<=len(s)):
         loop=t
-    elif(len(s)<len(t) and len(s)<len(e) and len(s)<len(h)):
+    elif(len(s)<=len(t) and len(s)<=len(e) and len(s)<=len(h)):
         loop=s
-    elif(len(e)<len(s) and len(e)<len(t) and len(e)<len(h)):
+    elif(len(e)<=len(t) and len(e)<=len(h) and len(e)<=len(s)):
         loop=e
     else:
         loop=h
-    results = []
     count = 0
     for x in loop:
-        if (x in s) and (x in t) and (x in e) and (x in h):
+        if (x in t) and (x in h) and (x in s) and (x in e):
             results.append(x)
             count+=1
-        if count>50:
-            break'''
-    results = anime.test(types, statuses, mode, ep, title) 
+        if count==50:
+            break
     return render_template("results.html", query = True, rand = False, search = search, type = type, status = status, episodes = episodes, results = results)
 
-@app.route("/single", methods = ['GET', 'POST'])
-def one():
-    print(request.form.get('supporttype'))
-    if request.form.get('supporttype') is not None:
-      flash("Here " + request.form.get('supporttype'))
-      return redirect(url_for('error'))
-    return redirect(url_for('form'))
-
-@app.route("/error", methods=['GET'])
-def error():
-    return render_template("error.html")
+# @app.route("/single", methods = ['GET', 'POST'])
+# def one():
+#     print(request.form.get('supporttype'))
+#     if request.form.get('supporttype') is not None:
+#       flash("Here " + request.form.get('supporttype'))
+#       return redirect(url_for('error'))
+#     return redirect(url_for('form'))
+#
+# @app.route("/error", methods=['GET'])
+# def error():
+#     return render_template("error.html")
 
 if __name__ == "__main__":
     app.debug = True
     anime.create()
     app.run()
-
