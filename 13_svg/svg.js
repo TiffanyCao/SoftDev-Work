@@ -10,9 +10,9 @@ var currentX = null;
 var currentY = null;
 var changed = false;
 
-//Event listener for svg
+//Event listener for svg, drawing new circle
 pic.addEventListener("click", function(e){
-  console.log(e.target);
+  // console.log(e.target);
 
   // var d = document.getElementsByTagNameNS("http://www.w3.org/2000/svg", "circle");
   // var count = 0;
@@ -27,7 +27,7 @@ pic.addEventListener("click", function(e){
   //
   // if (count == 0) {
 
-  if(e.target == pic){
+  if(e.target == pic){ //if mouse is on svg blank canvas
     var c = document.createElementNS("http://www.w3.org/2000/svg", "circle"); //creating a new circle
 
     c.setAttribute("r", "10");
@@ -41,21 +41,42 @@ pic.addEventListener("click", function(e){
   };
 });
 
+// pic.addEventListener("click", function(e){
+//   if(e.target != pic && e.target.getAttribute("fill") == "turquoise"){
+//     var newX = Math.floor(Math.random() * 501);
+//     var newY = Math.floor(Math.random() * 501);
+//     e.target.setAttribute("cx", newX);
+//     e.target.setAttribute("cy", newY);
+//     e.target.setAttribute("fill", "blue");
+//     e.target.setAttribute("stroke", "blue");
+//   };
+// });
+
+
+// Event listener for changing circle color and removing circle
 pic.addEventListener("click", function(e){
-  if(e.target != pic && e.target.getAttribute("fill") == "turquoise"){
+  var d = document.getElementsByTagNameNS("http://www.w3.org/2000/svg", "circle");
+  // console.log("1");
+  // console.log(d);
+  if(e.target != pic && e.target.getAttribute("fill") == "blue"){ //if mouse is on a blue circle
+    e.target.setAttribute("fill", "turquoise");
+    e.target.setAttribute("stroke", "turquoise");
+  }else if(e.target != pic && e.target.getAttribute("fill") == "turquoise"){ //if mouse is on a turquoise circle
     var newX = Math.floor(Math.random() * 501);
     var newY = Math.floor(Math.random() * 501);
-    e.target.setAttribute("cx", newX);
-    e.target.setAttribute("cy", newY);
-    e.target.setAttribute("fill", "turquoise");
-    e.target.setAttribute("stroke", "turquoise");
-  }
-});
+    e.target.remove(); //remove old circle
+    var c = document.createElementNS("http://www.w3.org/2000/svg", "circle"); //creating a new circle
 
-pic.addEventListener("click", function(e){
-  if(e.target != pic && e.target.getAttribute("fill") == "blue"){
-    e.target.setAttribute("fill", "turquoise");
-    e.target.setAttribute("stroke", "turquoise");
+    c.setAttribute("r", "10");
+    c.setAttribute("fill", "blue");
+    c.setAttribute("stroke", "blue");
+
+    c.setAttribute("cx", newX); //setting circle's position to random coordinates
+    c.setAttribute("cy", newY);
+
+    pic.appendChild(c);
+    // console.log("2");
+    // console.log(d);
   };
 });
 
