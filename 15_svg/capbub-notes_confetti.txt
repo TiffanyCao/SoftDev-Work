@@ -1,0 +1,21 @@
+1.
+- When you click on a cell, an alert box pops up with the td's innerHTML
+
+2.
+- When you click on a cell, an alert box pops up with the cell content first, then traces back in the DOM
+to the larger element containing it, so the alerts happen in this order: td's innerHTML, tr's innerHTML, and
+then table's innerHTML
+
+3.
+- Similar to #2, but alerts happen in a different order. The true parameter in table.addEventListener makes that
+event listener happen first before the other event listeners (td and tr) in the DOM. The order becomes table's innerHTML,
+td's innerHTML, then tr's innerHTML.
+- If the line e.stopPropagation() is uncommented, only the table innerHTML will pop up because it is the first alert and
+the propagation ends after it so all the following event listeners are ignored.
+
+4.
+- The order in which the event listeners are attached doesn't matter because they all have the parameter true. Thus
+the order of the alerts corresponds to how we traverse through the DOM, from the table's innerHTML, to tr's innerHTML,
+then finally td's innerHTML.
+- Uncommenting the line e.stopPropagation() will only allow the first alert, the table's innerHTML, to go through since
+the other event listeners will be ignored.
