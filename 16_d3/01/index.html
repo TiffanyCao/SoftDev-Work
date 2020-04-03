@@ -63,6 +63,8 @@ just a placeholder? I suppose bar automatically updates/calls to the latest vers
 bar will reflect that and select all of them.
 - What does enter() do? It seems like barUpdate joins the data to the chart, while barEnter actually enters each data value
 to its own div, which is newly instantiated for each value.
+- The enter selection contains placeholders for all the divs.
+- .append("div") then adds a div to every placeholder.
 - Even though barEnter is an array of divs, you don't need a for loop to change each div's attributes separately as you
 normally might with JavaScript. Instead you can just call barEnter. and whatever instructions you give reflects on all
 the divs in the selection.
