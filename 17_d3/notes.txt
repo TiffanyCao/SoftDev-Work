@@ -1,0 +1,26 @@
+Yifan Wang, Amanda Zheng, and Tiffany Cao (Team Icky Toothpaste)
+SoftDev pd1
+K17 -- Deeper Into D3
+2020-04-08
+
+Let’s Make a Bar Chart, Part I:
+  - Allows us to select a bulk of elements at once and apply operations
+  - Allows for chaining methods as opposed to making multiple variables and
+   repeating operations for selections
+  - No need for lots of local variables
+  - Use local variables as references to selections to retrace your steps
+  - selection.attr and selection.style can be constant or function-based
+    - if you want to change the data based on the current attribute, then you
+      need to make it a function
+  - scaleLinear can make functions by specifying domain and range
+
+ Learn D3: By Example (Some things we thought were cool)
+  - There are functions to calculate the stats of a given data set and make
+    them into certain diagrams
+  - You can make "drawings" using cool effects, such as watercolors and dots
+    - Can change the blur and strokes for watercolor
+  - For Epicyclic Gear, if you zoom in, you can change the speed
+  - You can make labels look nice by curving the words based on the shape of
+    the box using centerline labeling
+  - Polar Clock denotes real time (including date) in a circular format with
+    different sized circles

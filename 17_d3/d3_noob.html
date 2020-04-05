@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+Yifan Wang, Tiffany Cao and Amanda Zheng (Team Icky Toothpaste)
+SoftDev1 pd1
+K#17 -- Deeper into D3
+2020-04-05
+  -->
+  <style>
+    .chart div {
+    font: 10px sans-serif;
+    background-color: steelblue;
+    text-align: right;
+    padding: 3px;
+    margin: 1px;
+    color: white;
+    }
+  </style>
+<body>
+  <svg id="vimage" xmlns=“http://www.w3.org.org/2000/svg”
+        height="500" width="500" style="border: 1px solid;">
+          <circle  class= "circle" cx="250" cy="250" r="10"/>
+          <circle  class= "circle" cx="100" cy="250" r="10"/>
+          <circle  class= "circle" cx="400" cy="250" r="10"/>
+          <circle  class= "circle" cx="250" cy="100" r="10"/>
+          <circle  class= "circle" cx="250" cy="400" r="10"/>
+    </svg>
+  <div class="chart">
+  </div>
+</body>
+  <script src="http://d3js.org/d3.v5.min.js"
+  	charset="utf-8">
+  </script>
+
+  <!--------------------------------
+      Entering the following commands via console will
+      perform a fading color of your screen until it turns black...
+      d3.select("body").transition()
+      .style("background-color", "black");
+      //turns your screen black (fading it out)
+      Entering the following commands via console will
+      perform an animation to your circle...
+      //Init your data:
+      var data = [100, 150, 90, 75, 20];
+      //Select your body.
+      var circle = d3.selectAll(".circle");
+      //Join your data.
+      var circData = circle.data(data);
+      //selecting circle and performing the transition that lasts
+      circle.transition()
+    .duration(7500)
+    .delay(function(d, i) { return i * 1000; })
+    .attr("r", function(d) { return Math.sqrt(d * 10); });
+//the last command creates a transition where:
+    //.duration sets the animation time for each circle to 7.5 seconds
+    //.delay sets the starting time of the animation for each cirlce since entering the command
+        //.delay is dependent on the array index of the data value that the circle is bound to
+    //.attr sets the attribute "r" or radius of each circle based on d which is the data value that each circle is bound to
+    -------------------------------->

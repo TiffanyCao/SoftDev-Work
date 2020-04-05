@@ -6,9 +6,10 @@
     ...but will yield only blank page at first.
   -->
 <!--
-Clyde "Thluffy" Sinclair
-SoftDev2 pd0
-2099-12-31
+Tiffany Cao & Amanda Zheng & Yifan Wang (Team Icky Toothpaste)
+SoftDev2 pd1
+K17: Deeper Into D3
+2020-04-05
 -->
 
 <style>
@@ -58,6 +59,12 @@ SoftDev2 pd0
   -------------------------------->
 
 <!-- Notes:
+- var data returns an array
+- var chart returns a Pt object containing an array and HTML tags
+- var bar returns a Pt object containing a NodeList and a div class called "chart" in a parent array
+- var barUpdate returns a Pt object containing Array Prototpes and a div class called "chart" in a parent array
+- var barEnter returns a Pt object with an array of divs, a div class called "chart" in a parent array, and records the select and selectAll functions
+
 - When we instantiate bar, the chart technically doesn't have any div elements inside. Does that make selectAll("div")
 just a placeholder? I suppose bar automatically updates/calls to the latest version of chart, so even after you add new divs,
 bar will reflect that and select all of them.
