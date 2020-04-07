@@ -59,25 +59,43 @@ K17: Deeper Into D3
   -------------------------------->
 
 <!-- Notes:
-- var data returns an array
-- var chart returns a Pt object containing an array and HTML tags
+- var data first creates a list of values. data returns an array
+- var chart returns a Pt object containing an array and HTML tag
 - var bar returns a Pt object containing a NodeList and a div class called "chart" in a parent array
-- var barUpdate returns a Pt object containing Array Prototpes and a div class called "chart" in a parent array
+- var barUpdate returns a Pt object containing Array Prototpes and a div class called "chart" in a parent array. barUpdate binds each of the six values in data to the array
 - var barEnter returns a Pt object with an array of divs, a div class called "chart" in a parent array, and records the select and selectAll functions
 
-- When we instantiate bar, the chart technically doesn't have any div elements inside. Does that make selectAll("div")
-just a placeholder? I suppose bar automatically updates/calls to the latest version of chart, so even after you add new divs,
-bar will reflect that and select all of them.
-- What does enter() do? It seems like barUpdate joins the data to the chart, while barEnter actually enters each data value
-to its own div, which is newly instantiated for each value.
 - The enter selection contains placeholders for all the divs.
 - .append("div") then adds a div to every placeholder.
 - Even though barEnter is an array of divs, you don't need a for loop to change each div's attributes separately as you
 normally might with JavaScript. Instead you can just call barEnter. and whatever instructions you give reflects on all
 the divs in the selection.
+- All the divs are edited to reflect their new sizes.
+- Finally, the inner HTML is modified to the inside of the divs
 - The resulting bar graph looks just like the one for 00/index.html; going through d3 seems like it's just a more organized, and
 less repetitive way to create a chart of divs and put values in each one (corresponding to its width). This would be especially
 time-efficient if we had a lot of data because it would be difficult to write everything in the html individually as 00/index.html
 does.
 - When inputting these commands via the console, all of them return undefined, except for barEnter.style and barEnter.text which
-return Pt containing the data array and having the "chart" div as the parents. What does Pt stand for? What is a Pt prototype? -->
+return Pt containing the data array and having the "chart" div as the parents. What does Pt stand for? What is a Pt prototype?
+
+- barEnter.style("width", function(d) {return d * 10 + "px"; }) d is similar to e in js
+- Doesn't bar return an empty array? How is data binded to bar if it is an empty array?
+- How does barEnter run six times if bar is empty? Mechanism for loop?
+- .style() updates <style media="screen">
+- .text() updates text content
+
+Questions:
+- When inputting these commands via the console, all of them return undefined, except for barEnter.style and barEnter.text which
+return Pt containing the data array and having the "chart" div as the parents. What does Pt stand for? What is a Pt prototype?
+- d3.chart() selects by tag name
+- Q: What is the difference between d3.select() and d3.selectAll()?
+  A: d3.select() selects first matching element; d3.selectAll() selects all matching elements.
+- Q: What does enter() do? It seems like barUpdate joins the data to the chart, while barEnter actually enters each data value
+to its own div, which is newly instantiated for each value.
+  A: .enter().append() will create new elements if the joined array is longer than the selection
+- When we instantiate bar, the chart technically doesn't have any div elements inside. Does that make selectAll("div")
+just a placeholder? I suppose bar automatically updates/calls to the latest version of chart, so even after you add new divs,
+bar will reflect that and select all of them.
+
+-->
