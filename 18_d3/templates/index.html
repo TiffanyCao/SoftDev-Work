@@ -7,59 +7,76 @@ K18 -- Come Up For Air
 -->
 <html>
 
-    <head>
+  <head>
 
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>K18 -- Come Up For Air</title>
+    <title>K18 -- Come Up For Air</title>
 
-    </head>
-    <style>
-      .chart div {
-      font: 10px sans-serif;
-      background-color: steelblue;
-      text-align: right;
-      padding: 3px;
-      margin-bottom: 5px;
-      margin-left: 10px;
-      color: white;
-      display: none;
+  </head>
+  <style>
+    .chart div {
+    font: 10px sans-serif;
+    background-color: steelblue;
+    text-align: right;
+    padding: 3px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    color: white;
+    display: none;
+    }
+    .axis path, .axis line {
+      fill: none;
+      stroke: #fff;
+    }
+    .axis text {
+      	font-size: 13px;
       }
-  .axis path, .axis line {
-    fill: none;
-    stroke: #fff;
-  }
-.axis text {
-  	font-size: 13px;
-  }
-.bar {
-    fill: #8CD3DD;
-  }
-.bar:hover {
-    fill: #F56C4E;
-  }
-svg text.label {
-  fill:black;
-  font: 15px;
-  font-weight: 400;
-  text-anchor: middle;
-}
-#chartID {
-  display: none;
-	min-width: 531px;
-}
-#transition{
-  display:none;
-}
-    </style>
-    <body>
-        <h1>New Cases of Covid-19 Worldwide Date: February 1 2020<h1>
-        <div id="chartID"></div>
-        <br>
-        <button id="render">Render</button>
-        <button id="transition">Transition</button>
-        <script type="text/javascript">
+    .bar {
+        fill: #8CD3DD;
+      }
+    .bar:hover {
+        fill: #F56C4E;
+      }
+    svg text.label {
+      fill:black;
+      font: 15px;
+      font-weight: 400;
+      text-anchor: middle;
+    }
+    #chartID {
+      display: none;
+    	min-width: 531px;
+    }
+    #transition{
+      display:none;
+    }
+
+    #date{
+          display: none;
+    }
+    #continue{
+      display: none;
+    }
+    #stop{
+      display: none;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <center>
+      <h1>New Cases of Covid-19 Worldwide<h1>
+      <h4 id="date">Date: February 1, 2020<h4>
+      <div id="chartID"></div>
+      <br>
+      <button type="button" class="btn btn-info" id="render">Render</button>
+      <button type="button" class="btn btn-info" id="transition">Transition</button>
+      <button type="button" class="btn btn-info" onclick="run()" id="continue">Continuous</button>
+      <button type="button" class="btn btn-info" onclick="stop()" id="stop">Stop</button>
+      <script type="text/javascript">
         var canada = {{canada}}
         var china = {{china}}
         var france = {{france}}
@@ -71,10 +88,10 @@ svg text.label {
         var uk = {{uk}}
         var us = {{us}}
       </script>
-        <script src="http://d3js.org/d3.v5.min.js" charset="utf-8"></script>
-        <script src="{{ url_for('static', filename='index.js')}}"></script>
+      <script src="http://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+      <script src="{{ url_for('static', filename='index.js')}}"></script>
+      </center>
+    </div>
 
-
-    </body>
-
+  </body>
 </html>

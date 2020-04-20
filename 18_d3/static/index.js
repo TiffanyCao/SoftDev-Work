@@ -1,49 +1,50 @@
+//index of the day of data we are looking
 var count=0
+//data
 var data =  [{"country":"Canada","cases":canada[0]},
 {"country":"China","cases":china[0]},{"country":"France","cases":france[0]},
-{"country":"Germany","cases":germany[0]},
+{"country":"Gernmany","cases":germany[0]},
 {"country":"Iran","cases":iran[0]},{"country":"Italy","cases":italy[0]},
 {"country":"Korea","cases":korea[0]},{"country":"Spain","cases":spain[0]}
 ,{"country":"United Kingdom","cases":uk[0]},{"country":"United States","cases":us[0]}]
-var margin = {top:10, right:10, bottom:90, left:10};
 //defining the margin amounts of the chart
-var width = 960 - margin.left - margin.right;
+var margin = {top:10, right:10, bottom:90, left:10};
 //the total width of the bar graph
-var height = 500 - margin.top - margin.bottom;
+var width = 960 - margin.left - margin.right;
 //the total height of the bar graph
-var xScale = d3.scaleBand()
-  .range([0, width])
-  .paddingInner(0.05)
+var height = 500 - margin.top - margin.bottom;
+
+
 //sets the number of pixels for the xscale
 //adds padding
+var xScale = d3.scaleBand()
+  .range([0, width-20])
+  .paddingInner(0.05)
+
+//sets the number of pixels for the yscale
 var yScale = d3.scaleLinear()
       .range([height, 0]);
-//sets the number of pixels for the yscale
 
-var xAxis = d3.axisBottom(xScale)
 //positions the x axis on the bottom
-var yAxis = d3.axisLeft(yScale);
+var xAxis = d3.axisBottom(xScale)
 //positions the y axis on the left
+var yAxis = d3.axisLeft(yScale);
+
+
+//makes a chart with width and height adjusted with margins
 var svgContainer = d3.select("#chartID").append("svg")
     .attr("width", width+margin.left + margin.right)
     .attr("height",height+margin.top + margin.bottom)
     .append("g").attr("class", "container")
     .attr("transform", "translate("+ margin.left +","+ margin.top +")");
 
+//for each bar, maps the labels of x scale based on d.country
 xScale.domain(data.map(function(d) { return d.country; }));
-  //for each bar, maps the labels of x scale based on d.country
 
+//sets the scale of the yscale initially
 yScale.domain([0, d3.max(data, function(d) { return d.cases+1; })]);
-  //sets the height of yscale
 
-  //xAxis. To put on the top, swap "(height)" with "-5" in the translate() statement. Then you'll have to change the margins above and the x,y attributes in the svgContainer.select('.x.axis') statement inside resize() below.
-var xAxis_g = svgContainer.append("g")
-  		.attr("class", "x axis")
-  		.attr("transform", "translate(0," + (height) + ")")
-  		.call(xAxis)
-  		.selectAll("text");
-    //allows text for the xaxis
-
+//draws the actual bars and does the height based off of data values
 svgContainer.selectAll(".bar")
     	.data(data)
     	.enter()
@@ -54,6 +55,7 @@ svgContainer.selectAll(".bar")
     	.attr("y", function(d) { return yScale(d.cases); })
     	.attr("height", function(d) { return height - yScale(d.cases); });
 
+//make the numbers on the labels, x value and y value of the numerical labels
 svgContainer.selectAll(".text")
       .data(data)
       .enter()
@@ -63,22 +65,39 @@ svgContainer.selectAll(".text")
      	.attr("y", function(d) { return yScale(d.cases) - 30; })
       .attr("dy", ".75em")
     	.text(function(d) { return d.cases; });
-
+//creates labels for y scale on the side
 svgContainer.append("g")
-            .attr("class", "yaxis")
-            .attr("transform", "translate(960,0)")
-            .call(yAxis)
-            .selectAll("text");
+      .attr("class", "yaxis")
+      .attr("transform", "translate(960,0)")
+      .call(yAxis)
+      .selectAll("text");
 
+//makes the x axis country labels
+svgContainer.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + (height) + ")")
+      .call(xAxis)
+      .selectAll("text");
+
+//function to render the hidden chart and buttons
 var show = function(){
   var chart = document.getElementById("chartID");
   chart.style.display="inline";
   var transition = document.getElementById("transition");
   transition.style.display="inline";
+  var continuous = document.getElementById("continue");
+  continuous.style.display="inline";
+  var date = document.getElementById("date");
+  date.style.display="inline";
+  var pause = document.getElementById("stop");
+  pause.style.display="inline";
 }
 
+//function for transitioning to next day
 var next = function(){
-  count+=1;
+  //go to next index in country data
+  count = (count+1) % 78;
+  //manually change data
   data[0].cases=canada[count];
   data[1].cases=china[count];
   data[2].cases=france[count];
@@ -89,37 +108,76 @@ var next = function(){
   data[7].cases=spain[count];
   data[8].cases=uk[count];
   data[9].cases=us[count];
-  xScale.domain(data.map(function(d) { return d.country; }));
-    //for each bar, maps the labels of x scale based on d.country
+  //displaying date by using index
+  var date = document.getElementById("date");
+  var dateOfMonth;
+  if (count < 29) {
+    dateOfMonth = count + 1;
+    date.innerHTML = "Date: February " + dateOfMonth.toString() + ", 2020";
+  } else if (count < 60) {
+    dateOfMonth = count - 28;
+    date.innerHTML = "Date: March " + dateOfMonth.toString() + ", 2020";
+  } else {
+    dateOfMonth = count - 59;
+    date.innerHTML = "Date: April " + dateOfMonth.toString() + ", 2020";
+  }
 
-  yScale.domain([0, d3.max(data, function(d) { return d.cases + (d.cases % 10000); })]);
+  //for each bar, maps the labels of x scale based on d.country
+  xScale.domain(data.map(function(d) { return d.country; }));
+
+  //scale goes from 0 to the largest case + offset
+  yScale.domain([0, d3.max(data, function(d) { return d.cases + (d.cases % 20000); })]);
+
+  // resetting y scale line on the side
+  yAxis = d3.axisLeft(yScale);
+  svgContainer.select(".yaxis")
+           .transition().duration(1000)
+           .call(yAxis)
+           .selectAll("text");
+
+  //resets the lengths of each bar based on new data
   svgContainer.selectAll("rect")
         .transition()
         .duration(1000)
         .attr("y", function(d) { return yScale(d.cases); })
         .attr("height", function(d) { return height - yScale(d.cases); });
 
+  //resets the number labels and transitioning the previous numbers to the new data numbers
   svgContainer.selectAll(".label")
         .transition()
         .duration(1000)
         .tween( 'text', function(d) {
           var currentValue = this.textContent || "0";
-          // console.log(this.textContent)
           var interpolator = d3.interpolateRound( currentValue, d.cases);
           return function( t ) {
             this.textContent = interpolator( t );
           };})
         .attr("y", function(d) { return yScale(d.cases) - 30; })
         //.attr("x", (function(d) { return xScale(d.country) + xScale.bandwidth() / 2 ; }  ));
-
-  // yScale.domain([0, d3.max(data, function(d) { return d.cases; })]);
-  yAxis = d3.axisLeft(yScale);
-  svgContainer.select(".yaxis")
-              .transition().duration(1000) // https://github.com/mbostock/d3/wiki/Transitions#wiki-d3_ease
-              .call(yAxis)
-              .selectAll("text");
 }
+
+//booleans for automatic transition not firing twice and ending automatic transition
+var start = false;
+var end;
+
+//starts the automatic transitioning
+var run = function(){
+  if(!start){
+    start = true;
+    end = setInterval(next, 1500);
+  }
+}
+
+//stops the automatic transitioning
+var stop = function(){
+  start=false;
+  clearInterval(end);
+}
+
+//made eventListener for the render button
 var render = document.getElementById("render");
 render.addEventListener('click',show)
+
+//made eventlistener for the transition button
 var transition = document.getElementById("transition");
 transition.addEventListener('click',next)
